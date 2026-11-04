@@ -1,0 +1,546 @@
+/* ========================================
+    ESTILOS DEL COMPONENTE DE PAGOS
+   ======================================== */
+
+/* 🎨 KEYFRAMES Y ANIMACIONES */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 📦 CONTENEDOR PRINCIPAL */
+.pagar-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.372), 
+                0 4px 10px rgba(0, 0, 0, 0.513);
+}
+
+/* 📝 TÍTULO PRINCIPAL */
+.pagar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 24px;
+    text-align: center;
+    color: #2d3748;
+}
+
+/* 🔍 INFO DE DEBUG */
+.debug-info {
+    background: #f7fafc;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+.debug-info strong {
+    font-weight: 600;
+}
+
+/* ⏳ LOADING SPINNER PRINCIPAL */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    flex-direction: column;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 10px;
+    color: #718096;
+}
+
+/* 🎯 SELECTOR DE MÉTODO DE PAGO */
+.payment-selector {
+    margin-bottom: 24px;
+}
+
+.payment-tabs {
+    display: flex;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.payment-tab {
+    flex: 1;
+    padding: 12px 16px;
+    text-align: center;
+    font-weight: 600;
+    border: none;
+    background-color: transparent;
+    color: #718096;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.payment-tab.active-mercadopago {
+    border-bottom: 3px solid #3182ce;
+    background-color: #ebf8ff;
+    color: #3182ce;
+}
+
+.payment-tab.active-tarjeta {
+    border-bottom: 3px solid #48bb78;
+    background-color: #f0fff4;
+    color: #48bb78;
+}
+
+.payment-tab:hover {
+    background-color: #f7fafc;
+}
+
+/* 💳 VISTA MERCADO PAGO */
+.mercadopago-container {
+    text-align: center;
+    padding: 32px 0;
+}
+
+.mercadopago-content {
+    margin-bottom: 24px;
+}
+
+.mercadopago-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #dbeafe;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.mercadopago-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #009ee3;
+}
+
+.mercadopago-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 8px;
+}
+
+.mercadopago-description {
+    color: #718096;
+    max-width: 384px;
+    margin: 0 auto 24px;
+}
+
+.mercadopago-amount {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    margin-bottom: 16px;
+}
+
+.mercadopago-amount strong {
+    font-weight: 600;
+}
+
+/* ⏳ LOADING STATE MERCADO PAGO */
+.mercadopago-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.mercadopago-loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #009ee3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.mercadopago-loading-text {
+    color: #718096;
+    font-size: 0.875rem;
+}
+
+/* 🎯 BOTÓN PRINCIPAL MERCADO PAGO */
+.mercadopago-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.mercadopago-button {
+    background-color: #3100e3;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0, 158, 227, 0.2);
+}
+
+.mercadopago-button:hover {
+    background-color: #0082c1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 158, 227, 0.3);
+}
+
+.mercadopago-button:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.mercadopago-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 💡 INFO ADICIONAL */
+.mercadopago-info {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: center;
+    max-width: 300px;
+}
+
+/* ❌ ERROR STATE MERCADO PAGO */
+.mercadopago-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    padding: 12px;
+    background-color: #fef2f2;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
+    text-align: center;
+}
+
+.mercadopago-retry-button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background-color 0.2s ease;
+}
+
+.mercadopago-retry-button:hover {
+    background-color: #dc2626;
+}
+
+/* 🔍 DEBUG INFO (QUITAR EN PRODUCCIÓN) */
+.debug-preference {
+    margin-top: 16px;
+    font-size: 0.75rem;
+    color: #6b7280;
+    background-color: #f9fafb;
+    padding: 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    text-align: center;
+}
+
+/* 💳 VISTA TARJETA */
+.tarjeta-container {
+    margin-top: 24px;
+}
+
+.tarjeta-header {
+    margin-bottom: 16px;
+}
+
+.tarjeta-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 4px;
+}
+
+.tarjeta-description {
+    color: #718096;
+    font-size: 0.875rem;
+}
+
+.tarjeta-actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.tarjeta-cancel-button {
+    padding: 10px 20px;
+    border: 1px solid #d2d6dc;
+    background-color: white;
+    color: #374151;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.tarjeta-cancel-button:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+}
+
+/* 📭 SIN MÉTODOS DE PAGO */
+.no-payment-methods {
+    text-align: center;
+    padding: 32px 0;
+    color: #718096;
+}
+
+/* 📱 RESPONSIVE DESIGN */
+@media (max-width: 640px) {
+    .pagar-container {
+        margin: 16px;
+        padding: 16px;
+    }
+    
+    .pagar-title {
+        font-size: 1.25rem;
+    }
+    
+    .payment-tab {
+        padding: 10px 12px;
+        font-size: 0.875rem;
+    }
+    
+    .mercadopago-button {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+    
+    .tarjeta-actions {
+        flex-direction: column;
+    }
+    
+    .debug-info {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}
+
+
+
+/*
+
+.mercadopago-sandbox input,
+.mercadopago-sandbox select,
+.mercadopago-sandbox button {
+  all: unset!important;
+  box-sizing: border-box !important;
+  background: initial !important;
+  color: initial !important;
+  border: initial !important;
+  font-size: initial !important;
+  width: auto;
+}
+
+.mercadopago-sandbox iframe[src*="mercadopago.com"] {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.mercadopago-sandbox [class*="svelte"] {
+    background: transparent !important;
+}
+
+/* Asegurar que los contenedores padre también sean transparentes 
+.mercadopago-sandbox div[id*="card-number-container"],
+.mercadopago-sandbox div[id*="expiration-date-container"], 
+.mercadopago-sandbox div[id*="security-code-container"] {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+*/
+
+
+
+
+/*PARA LA INFO DE LO Q ESTAS PAGANDO*/
+.info-pago-resumen {
+  background: #f7fafc;
+    border: 1.5px solid #e3e8ef;
+    border-radius: 9px;
+    box-shadow: 0 2px 14px rgba(40,60,120,0.04);
+    padding: 0;
+    margin-bottom: 24px;
+    margin-top: 2px;
+    font-size: 1rem;
+    color: #000000;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.info-pago-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    user-select: none;
+}
+.info-pago-header:hover {
+    background-color: #edf2f7;
+}
+
+.info-pago-header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.chevron-icon {
+    color: #4a7db3;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.chevron-icon.rotated {
+    transform: rotate(180deg);
+}
+
+.info-pago-detalles {
+    padding: 0 24px 18px 24px;
+    border-top: 1px solid #e3e8ef;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.info-pago-item {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+}
+
+.info-label {
+    min-width: 110px;
+    font-weight: 600;
+    color: #002366;
+    display: inline-block;
+}
+
+.info-monto-valor {
+    color: #079a5b;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+.cardpayment-container {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    min-height: 400px;
+    width: 100%;
+}
+/* Reducir box-shadow */
+.pagar-container {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Más sutil */
+}
+
+
+
+
+/* CONFIGURACIONES TEMPORALES MERCADOPAGO HASTA Q FUNCIONE BIEN*/
+
+.cardPaymentBrick_container {
+  min-width: 320px;
+  max-width: 410px;
+  min-height: 800px;    /* <--- Ajusta este valor según el formulario */
+  background: #fff;
+  display: block;
+  margin: 0 auto;
+  padding: 24px 10px;
+  border-radius: 10px;
+  --text-align: center;
+  --form-inputs-text-align: center;
+}
+
+.cardPaymentBrick_container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+.tarjeta-container {
+  min-width: 320px;
+  min-height: 380px;
+  padding: 1px 1px;
+  border-radius: 10px;
+  background: #fff;
+
+  /* Variables para inputs internos del brick */
+  --form-inputs-text-align: center;
+  --text-align: center;
+  --input-background-color: #fff;
+  --form-background-color: #fff;
+  --font-size-large: 16px;
+}
+
+
+.tarjeta-container iframe {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.tarjeta-container div[id*="container"] {
+  background: transparent !important;
+  min-height: 40px !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+@media (max-width: 600px) {
+  .cardPaymentBrick_container {
+    width: 98vw;
+    min-width: 0;
+    max-width: 100vw;
+    padding: 16px 2vw;
+  }
+}
+
+

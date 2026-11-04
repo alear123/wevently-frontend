@@ -1,0 +1,149 @@
+.reservaciones-contenedor {
+  padding: 2rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  min-height: 100vh;
+}
+
+.reservaciones-breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+.reservaciones-titulo {
+  text-align: left;
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+}
+
+.reservaciones-buscador-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.reservaciones-buscador-contenedor > *:first-child {
+  flex: 1;
+  min-width: 250px;
+}
+
+.reservaciones-buscador-botones {
+  display: flex;
+  gap: 10px;
+}
+
+.reservaciones-btn-filtros {
+  background: white;
+  border: 2px solid #e2e8f0;
+  color: #475569;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+}
+
+
+
+.reservaciones-filtros-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  align-items: row;
+}
+
+.reservaciones-filtro-grupo {
+  flex: 1 1 200px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reservaciones-filtro-grupo.fechas {
+  flex: 1 1 300px;
+}
+
+.reservaciones-filtro-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.reservaciones-filtro-grupo input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #f9fafb;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  height: 42px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #334155;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.reservaciones-filtro-grupo input[type="date"]:focus {
+  border-color: #2563eb;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.reservaciones-filtro-grupo input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(40%);
+  opacity: 0.8;
+}
+
+.reservaciones-filtro-grupo input[type="date"]:hover {
+  background-color: #f1f5f9;
+}
+
+.reservaciones-lista {
+  display: grid;
+  gap: 20px;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 992px) {
+  .reservaciones-filtros-panel {
+    flex-direction: column;
+  }
+  .reservaciones-filtro-grupo,
+  .reservaciones-filtro-grupo.fechas {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .reservaciones-buscador-contenedor {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .reservaciones-btn-filtros {
+    width: 100%;
+  }
+}

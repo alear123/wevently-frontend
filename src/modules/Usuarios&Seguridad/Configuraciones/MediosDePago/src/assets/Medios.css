@@ -1,0 +1,114 @@
+/* Medios.css reducido: solo overrides puntuales no cubiertos por abm-shared */
+
+/* Botón de sincronizar reutiliza base outline pero en verde para destacar acción externa */
+.abm-outline-btn.medio-sync {
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  border:none;
+  box-shadow:0 6px 14px rgba(22,163,74,.18);
+}
+.abm-outline-btn.medio-sync:hover { box-shadow:0 10px 24px rgba(22,163,74,.28); }
+.abm-outline-btn.medio-sync:disabled { opacity:.65; box-shadow:none; }
+
+/* Chips reutilizados (colores se setean inline en JSX; aquí ajustes tipográficos globales opcionales) */
+.medio-chip { font-weight:600; letter-spacing:.25px; }
+
+/* Centrar acciones en columna Acciones (cuando hay solo un botón Modificar) */
+.abm-table tbody td:last-child .actions { justify-content:center; }
+
+/* Dropdown filtro tipo (si FiltroTipo requiere ajustes mínimos) */
+.filtro-tipo-button { min-height:46px; }
+.filtro-tipo-dropdown { max-height:260px; overflow-y:auto; }
+
+/* Switch custom (si en algún momento se usara fuera de ModalAM) */
+.medio-inline-switch { display:inline-flex; align-items:center; gap:8px; }
+.medio-inline-switch .track { width:46px; height:24px; border-radius:24px; background:#d1d5db; position:relative; transition:.25s; }
+.medio-inline-switch .thumb { position:absolute; top:2px; left:2px; width:20px; height:20px; background:#fff; border-radius:50%; transition:.25s; box-shadow:0 2px 4px rgba(0,0,0,.2); }
+.medio-inline-switch.is-on .track { background:#4B4EFD; }
+.medio-inline-switch.is-on .thumb { left:24px; }
+
+/* Responsive tweak: filtro y botón sincronizar se expanden */
+@media (max-width:768px){
+  .medio-inline-switch { margin-top:8px; }
+  .abm-controls .abm-outline-btn.medio-sync { width:100%; }
+}
+
+/* Fix modal clipping specifically para el formulario de Medios de Pago
+   No modificamos `abm-shared.css`. Estas reglas aseguran que el modal
+   se ajuste a la altura de la ventana, que el body del modal haga scroll
+   internamente y que las acciones (footer sticky) no tapen el contenido. */
+.abm-modal {
+  /* limitar altura total del modal para que nunca exceda la ventana
+     y evitar que el modal provoque scroll en el documento */
+  max-height: 90vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+.abm-modal .abm-modal-body {
+  /* permitir scroll solo en el body del modal. Flex permite que el body
+     ocupe el espacio disponible dentro del modal y haga scroll internamente. */
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  /* reservar espacio para los botones sticky en la parte inferior */
+  padding-bottom: 96px !important; /* suficiente para que no quede contenido oculto bajo actions */
+}
+.abm-modal .abm-modal-body::after {
+  /* pequeño espaciador para garantizar que el último campo sea visible al scrollear */
+  content: '';
+  display: block;
+  height: 24px;
+}
+.abm-modal .abm-modal-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1200;
+  /* asegurar que el fondo degrade suavemente sobre el contenido */
+  background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0.95));
+  padding: 12px 16px;
+}
+
+@media (max-width: 768px) {
+  .abm-modal { width: calc(100% - 24px) !important; margin: 12px !important; }
+  .abm-modal .abm-modal-body { max-height: calc(100vh - 180px); }
+}
+
+/* Mejoras adicionales para evitar desbalanceo al scrollear dentro del modal */
+.abm-modal.abm-modal-shell {
+  padding: 20px !important; /* espacio interno consistente */
+  box-sizing: border-box !important;
+}
+.abm-modal .abm-modal-body {
+  padding-right: 12px !important; /* espacio para scrollbar sin mover contenido */
+  overflow-x: hidden !important; /* evitar desplazamientos horizontales */
+}
+.abm-modal .abm-modal-body > div {
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+/* Asegurar inputs y select ocupen el 100% respetando box-sizing */
+.abm-modal .form-control,
+.abm-modal .abm-pill-input,
+.abm-modal select,
+.abm-modal textarea {
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+/* Hacer las acciones flexibles y que los botones compartan el espacio sin forzar width:100% */
+.abm-modal .abm-modal-actions {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+}
+.abm-modal .abm-modal-actions .abm-primary-btn,
+.abm-modal .abm-modal-actions .abm-action-btn {
+  flex: 1 1 auto !important;
+  width: auto !important;
+}
+
+/* Evitar que el contenido se desplace fuera del área visible cuando se scrollea demasiado */
+.abm-modal .abm-modal-body { 
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain !important;
+}

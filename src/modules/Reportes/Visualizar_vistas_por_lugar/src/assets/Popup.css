@@ -1,0 +1,149 @@
+/* Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Contenido */
+.popup-content {
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 400px;
+  max-width: 90vw;
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.popup-icon {
+  width: 24px;
+  height: 24px;
+  background-color: #2433FF;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.popup-icon span {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.popup-header h3 {
+  margin: 0;
+  color: #2433FF;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pop-up-close{
+    margin-left: auto;
+    top: 10px;
+    right: 10px;
+    background: #ff4757;
+    border: none;
+    border-radius: 50%;
+    width: 5px;
+    height: 30px;
+    font-size: 0.8em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(255,71,87,0.3);
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+
+.pop-up-close:hover {
+     background: #ff3838;
+    transform: scale(1.05);
+}
+
+/* Texto */
+.popup-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.popup-content p {
+  margin: 0 0 24px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Campos */
+.popup-field {
+  margin-bottom: 16px;
+}
+
+.popup-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.parametro-datepicker.error {
+  border: 2px solid #FF0000 !important;
+}
+
+.popup-error {
+  color: #FF0000;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Botones */
+.popup-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.popup-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.popup-buttons .cancelar {
+  background-color: #BDC4E9;
+  color: #333;
+}
+
+.popup-buttons .generar {
+  background-color: #2433FF;
+  color: white;
+}
+
+.popup-buttons .generar.disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}

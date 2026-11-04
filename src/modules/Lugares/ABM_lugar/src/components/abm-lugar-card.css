@@ -1,0 +1,183 @@
+/* Tarjeta de lugar */
+.lugar-card1 {
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.15s ease-in-out;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+/* Contenido interno */
+.lugar-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Contenedor de la imagen */
+.lugar-card-image-container {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Imagen del lugar  */
+.lugar-card-image {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  max-width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+@media (min-width: 768px) {
+  .lugar-card-content {
+    flex-direction: row;
+  }
+
+  .lugar-card-image {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 12px;
+  }
+}
+
+/* Detalles del lugar */
+.lugar-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.lugar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.lugar-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  flex: 1;
+  padding-right: 8px;
+}
+
+.lugar-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #f59e0b;
+}
+
+.lugar-rating-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.lugar-rating-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.lugar-type-container {
+  margin-bottom: 8px;
+}
+
+.lugar-type-badge {
+  display: inline-block;
+  background-color: #f3f4f6;
+  color: #374151;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  border: 1px solid #e5e7eb;
+}
+
+.lugar-direccion,
+.lugar-capacidad {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+
+.lugar-precio {
+  font-size: 16px;
+  font-weight: bold;
+  color: #10b981;
+  margin: 6px 0;
+}
+
+/* Acciones (botones) */
+.lugar-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn-modificar {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-modificar:hover {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+}
+
+.btn-eliminar {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-eliminar:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+/* Responsividad general */
+@media (min-width: 576px) {
+  .lugar-card {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .lugar-card {
+    max-width: 680px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lugar-card {
+    max-width: 100%;
+  }
+}

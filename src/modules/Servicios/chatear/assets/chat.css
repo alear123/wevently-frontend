@@ -1,0 +1,267 @@
+.tick-icon {
+    position: absolute;
+    bottom: 4px;               /* separa desde abajo */
+    right: 6px;                /* separa desde la derecha */
+    font-size: 0.9rem;
+    color: #6c757d;            /* gris suave, o el color que prefieras */
+  }
+
+
+/* Custom Styles */
+body {
+    background-color: #e5e5e5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header */
+.header-custom {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Breadcrumb */
+.breadcrumb-custom {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* Chat Card */
+.chat-card {
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+/* Avatar */
+.avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-text {
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Messages */
+.messages-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.message-row {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.message {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 20px;
+    position: relative;
+    font-size: 0.9rem;
+    padding-bottom: 18px;
+
+}
+
+.message.incoming {
+    background-color: #d1d5db;
+    margin-right: auto;
+    color: #374151;
+}
+
+.message.outgoing {
+    background-color: #86efac;
+    margin-left: auto;
+    color: #065f46;
+}
+
+.message-placeholder {
+    height: 16px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    animation: pulse 2s infinite;
+}
+
+.message.incoming .message-placeholder {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.message.outgoing .message-placeholder {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Proposal Card */
+.proposal-card {
+    background-color: #f3f4f6;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+}
+
+.proposal-actions .btn {
+    font-size: 0.875rem;
+    padding: 6px 16px;
+}
+
+.proposal-status .badge {
+    font-size: 0.875rem;
+    padding: 6px 12px;
+}
+
+.proposal-status .badge.bg-success {
+    background-color: #10b981 !important;
+}
+
+.proposal-status .badge.bg-danger {
+    background-color: #ef4444 !important;
+}
+
+/* Message Input */
+.message-input-container {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 16px;
+}
+
+.message-input {
+    background-color: #f3f4f6;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 16px;
+}
+
+.message-input:focus {
+    background-color: #f3f4f6;
+    box-shadow: none;
+    border: none;
+}
+
+/* Footer */
+.footer-custom {
+    background-color: #000;
+    color: white;
+}
+
+/* Modal Styles */
+.detail-section {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.detail-content {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.detail-item {
+    margin-bottom: 4px;
+}
+
+/* Success Modal */
+.success-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.success-icon i {
+    font-size: 2rem;
+    color: #16a34a;
+}
+
+/* Confirmation Modal */
+.confirmation-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #fef3c7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.confirmation-icon i {
+    font-size: 2rem;
+    color: #d97706;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .message {
+        max-width: 85%;
+    }
+
+    .logo {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .proposal-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .proposal-actions .btn {
+        width: 100%;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .modal-footer .btn {
+        margin: 0;
+    }
+}

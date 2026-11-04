@@ -1,0 +1,41 @@
+/* src/pages/reporte-styles.css */
+
+/* tarjeta moderna */
+.modern-card {
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+/* tabla look suave */
+.modern-table tbody tr {
+  transition: background-color .15s ease;
+}
+.modern-table tbody tr:hover {
+  background-color: rgba(99,102,241,0.04);
+}
+
+/* color suave por filas */
+.bg-light-subtle {
+  background-color: #fbfbff;
+}
+
+/* contenedor del grafico (ya con altura en el componente) */
+.grafico-card {
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  box-shadow: 0 6px 18px rgba(59,130,246,0.06);
+}
+
+/* botones más consistentes (opcional) */
+.btn-primary {
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+
+/* pequeñas adaptaciones responsive */
+@media (max-width: 576px) {
+  .grafico-card { height: 320px; }
+  .modern-card { padding: 12px; }
+}

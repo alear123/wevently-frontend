@@ -1,0 +1,114 @@
+.prestaciones-contenedor {
+  padding: 2rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  min-height: 100vh;
+}
+
+.prestaciones-breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+.prestaciones-titulo {
+  text-align: left;
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+}
+
+/* Buscador y botón de filtros */
+.prestaciones-buscador-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.prestaciones-buscador-contenedor > *:first-child {
+  flex: 1;
+  min-width: 250px;
+}
+
+.prestaciones-btn-filtros {
+  background: white;
+  border: 2px solid #e2e8f0;
+  color: #475569;
+  padding: 0.75rem 1.25rem;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+}
+
+/* Panel de filtros */
+.prestaciones-filtros-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.prestaciones-filtro-grupo {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+.prestaciones-filtro-grupo.fechas {
+  flex: 1 1 300px;
+}
+
+.prestaciones-filtro-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Lista de cards */
+.prestaciones-lista {
+  display: grid;
+  gap: 20px;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+  margin-bottom: 3rem;
+}
+
+/* Paginador */
+.prestaciones-paginador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .prestaciones-filtros-panel {
+    flex-direction: column;
+  }
+
+  .prestaciones-filtro-grupo,
+  .prestaciones-filtro-grupo.fechas {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .prestaciones-buscador-contenedor {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .prestaciones-btn-filtros {
+    width: 100%;
+  }
+}

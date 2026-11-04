@@ -1,0 +1,98 @@
+/* FiltrosReporte y CampoFecha: estilos generales reutilizables */
+.filtros-reporte-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+.filtros-titulo {
+    color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.filtros-row {
+    display: flex;
+    gap: 20px;
+    align-items: end;
+}
+.filtro-campo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 250px;
+}
+.btn-aplicar-filtros {
+    background: #2433FF;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 44px;
+}
+.btn-aplicar-filtros:hover:not(:disabled) {
+    background: #1a2899;
+    transform: translateY(-1px);
+}
+.btn-aplicar-filtros:disabled {
+    background: #BDC4E9;
+    cursor: not-allowed;
+    transform: none;
+}
+.parametro-datepicker {
+    width: 140px;
+    padding: 6px 10px;
+    border: 1px solid #d1d5db !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    color: #1f2937 !important;
+    background: #f1f5f9 !important;
+    transition: border-color 0.2s, background-color 0.25s, box-shadow 0.25s !important;
+    line-height: 1.1;
+    -webkit-text-fill-color: #1f2937 !important;
+    -webkit-text-stroke: 0px #1f2937 !important;
+}
+.parametro-datepicker:focus {
+    outline: none;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px rgba(99,102,241,.25) !important;
+    background:#fff !important;
+}
+.parametro-datepicker.error {
+    border-color: #FF0000 !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1) !important;
+}
+.parametro-datepicker::-webkit-datetime-edit-year-field,
+.parametro-datepicker::-webkit-datetime-edit-month-field,
+.parametro-datepicker::-webkit-datetime-edit-day-field {
+    color: #1f2937 !important;
+    -webkit-text-fill-color: #1f2937 !important;
+}
+.parametro-datepicker::-webkit-input-placeholder {
+    color: #6b7280 !important;
+}
+.parametro-datepicker::-webkit-datetime-edit-text {
+    color: #1f2937 !important;
+}
+.error-message {
+    color: #FF0000;
+    font-size: 12px;
+    margin-top: 6px;
+    font-weight: 500;
+}
+.error-rango-container {
+    margin-top: 16px;
+    text-align: center;
+}
+.error-rango {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 4px;
+    padding: 8px 12px;
+    display: inline-block;
+}

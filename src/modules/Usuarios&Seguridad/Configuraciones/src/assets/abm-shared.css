@@ -1,0 +1,853 @@
+/* Shared styles para páginas ABM (genérico y responsive) */
+body,
+html,
+#root {
+  background-color: #fff !important;
+}
+/* Page container */
+.abm-page {
+  padding: 18px 24px 28px;
+  /* Fondo sólido para evitar halo / degradado visual por transparencia + blur */
+  background: #fff;
+  backdrop-filter: none;
+}
+
+/* Card contenedor */
+.abm-card {
+  max-width: 1200px;
+  margin: 24px auto;
+  background: #fff;
+  /* sólido / / backdrop-filter: blur(18px); eliminada */
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  padding: 24px 24px 28px;
+}
+
+.abm-page .page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 10px 0 18px;
+}
+
+/* Controls row */
+.abm-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+/* Search */
+.abm-controls .search-container {
+  flex: 1 1 420px;
+  max-width: 400px;
+  min-width: 260px;
+}
+
+.search-container { position: relative; }
+
+.search-input {
+  width: 100%;
+  border: 1.5px solid #d1d5db;
+  border-radius: 14px;
+  padding: 14px 44px 14px 16px;
+  font-size: 1rem;
+  color: #111827;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-input::placeholder { color: #9ca3af; }
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: none;
+}
+.search-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none; /* evita bloquear clics en el input */
+}
+
+/* Select estilizado reutilizable (menos rectangular) */
+.abm-select-wrapper { position:relative; width:100%; }
+.abm-select {
+  width: 100%;
+  border: 1.5px solid #d1d5db;
+  border-radius: 14px;
+  padding: 12px 44px 12px 14px; /* espacio para flecha */
+  font-size: 0.95rem;
+  background: #fff;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  cursor: pointer;
+}
+.abm-select:focus { border-color: #6366f1; }
+.abm-select-wrapper .select-arrow {
+  position:absolute;
+  top:50%;
+  right:16px;
+  transform:translateY(-50%);
+  pointer-events:none;
+  color:#6b7280;
+  display:inline-flex;
+  transition: color .2s;
+}
+.abm-select:focus + .select-arrow { color:#6366f1; }
+.abm-select:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Quick range buttons (reportes modal) */
+.quick-ranges { margin: 4px 0 12px; }
+.quick-ranges-label { font-size:.70rem; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:#64748b; display:block; margin-bottom:6px; }
+.quick-range-buttons { display:flex; gap:8px; flex-wrap:wrap; }
+.quick-range-buttons .abm-outline-btn { padding:8px 12px; font-size:.72rem; border-radius:10px; }
+.quick-range-buttons .abm-outline-btn.active {
+  background:#eef2ff;
+  border-color:#6366f1;
+  color:#1e3a8a;
+  box-shadow:0 0 0 2px rgba(99,102,241,0.15);
+}
+
+.disabled-hint { margin-top:6px; font-size:.70rem; font-weight:600; color:#64748b; }
+.disabled-hint.error { color:#b91c1c; }
+
+/* Campo date con icono calendario */
+.abm-date-field { position: relative; width:100%; }
+.abm-date-field input.abm-datepicker { padding-right: 84px; }
+
+/* Ocultar icono nativo (webkit) para evitar duplicado visual */
+.abm-date-field input[type=date]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+/* Botones dentro del campo (clear + calendar) */
+.abm-date-field .date-inline-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition: background .18s, color .18s, border-color .18s;
+}
+.abm-date-field .date-inline-btn:hover { background:#e2e8f0; }
+.abm-date-field .date-inline-btn:active { background:#d9e2ec; }
+.abm-date-field .date-inline-btn:focus-visible { outline:2px solid #6366f1; outline-offset:2px; }
+.abm-date-field .clear-date-btn { right: 50px; }
+.abm-date-field .calendar-btn { right: 14px; color:#6366f1; border-color:#dbe4f0; background:#f0f5ff; }
+.abm-date-field .calendar-btn:hover { background:#e3edff; }
+.abm-date-field input.abm-datepicker:disabled ~ .date-inline-btn { opacity:.4; cursor:not-allowed; }
+
+/* Estado de error (fecha hasta < fecha desde) */
+.abm-date-field.error input.abm-datepicker {
+  border-color:#dc2626 !important;
+  background:#fef2f2;
+}
+.abm-date-error-text {
+  font-size: .75rem;
+  color: #b91c1c;
+  font-weight:600;
+  margin-top:4px;
+  padding-left:4px;
+}
+
+/* Botón primario (Nuevo/Agregar) */
+.abm-primary-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px; /* unifica altura con otros botones */
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.25s ease, background 0.25s;
+  white-space: nowrap;
+  line-height: 1; /* para alturas consistentes */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.abm-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(22, 163, 74, 0.28);
+}
+.abm-primary-btn:active { transform: translateY(-1px); }
+.abm-primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Table container: scroll horizontal en móvil */
+.table-container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: 10px;
+  overflow: hidden; /* el scroll horizontal se maneja en .table-scroll */
+}
+
+/* Wrapper para scroll en pantallas chicas */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  touch-action: pan-x; /* facilita el gesto horizontal en mobile */
+  overscroll-behavior-x: contain; /* evita traspaso de scroll al body */
+}
+.table-scroll::-webkit-scrollbar { height: 8px; }
+.table-scroll::-webkit-scrollbar-thumb { background: #cfd6de; border-radius: 6px; }
+
+/* Tabla */
+.abm-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  min-width: 560px; /* asegura legibilidad; permite scroll en móvil */
+}
+
+.abm-table thead th {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  padding: 12px 16px;
+  text-align: center;
+  background: transparent;
+}
+.abm-table thead th:first-child { text-align: left; }
+/* Reservar ancho para Acciones */
+.abm-table thead th:last-child { width: 220px; }
+
+.abm-table tbody tr {
+  background: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.abm-table tbody tr:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.06);
+  background: rgba(99, 102, 241, 0.02);
+}
+
+.abm-table tbody td {
+  padding: 16px;
+  color: #111827;
+  font-weight: 500;
+  text-align: center;
+}
+.abm-table tbody td:first-child { text-align: left; }
+
+/* Chips reutilizables (estado / visibilidad / booleanos) */
+.chip { display:inline-flex; align-items:center; padding:4px 10px; border-radius:16px; font-size:.70rem; font-weight:600; letter-spacing:.25px; line-height:1; }
+.chip--ok { background:#e8f5e8; color:#2e7d32; }
+.chip--warn { background:#fff3e0; color:#f57c00; }
+.chip--off { background:#ffebee; color:#c62828; }
+.chip--neutral { background:#eef2f7; color:#374151; }
+
+/* Sortable headers */
+.abm-table th.sortable { cursor:pointer; user-select:none; position:relative; }
+.abm-table th.sortable .sort-icon { margin-left:6px; font-size:.7rem; opacity:.35; transition:opacity .18s, transform .25s; display:inline-flex; transform-origin:center; min-width:14px; justify-content:center; }
+.abm-table th.sortable:hover .sort-icon { opacity:.55; }
+.abm-table th.sortable .sort-icon.neutral { opacity:.35; }
+.abm-table th.sortable .sort-icon.asc, .abm-table th.sortable .sort-icon.desc { opacity:.9; }
+
+/* Loader skeleton for ABM tables */
+.abm-skeleton-table { width:100%; border-collapse:separate; border-spacing:0 12px; }
+.abm-skeleton-row { background:#fff; box-shadow:0 4px 10px rgba(0,0,0,.04); height:52px; }
+.abm-skeleton-cell { padding:16px; }
+.abm-skel-bar { display:block; height:14px; width:100%; border-radius:8px; background:linear-gradient(90deg,#f2f4f7 0%,#e3e8ef 45%,#f2f4f7 90%); background-size:200% 100%; animation:abmShimmer 1.2s ease-in-out infinite; }
+.abm-skel-bar.short { width:60%; }
+@keyframes abmShimmer { 0% { background-position:0 0;} 100% { background-position:-200% 0; } }
+
+/* Inline switch base */
+.abm-switch { position:relative; display:inline-flex; align-items:center; gap:8px; cursor:pointer; }
+.abm-switch input { position:absolute; opacity:0; pointer-events:none; }
+.abm-switch .track { width:42px; height:22px; border-radius:22px; background:#d1d5db; position:relative; transition:.25s; }
+.abm-switch .thumb { position:absolute; top:2px; left:2px; width:18px; height:18px; background:#fff; border-radius:50%; box-shadow:0 2px 4px rgba(0,0,0,.2); transition:.25s; }
+.abm-switch input:checked + .track { background:#4B4EFD; }
+.abm-switch input:checked + .track .thumb { transform:translateX(20px); }
+
+/* Acciones */
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap; /* se permite wrap, pero los botones no se estiran */
+}
+
+.abm-action-btn {
+  padding: 14px 24px; /* mismo padding que primary */
+  border-radius: 12px;
+  font-size: 0.95rem; /* igual que .abm-primary-btn para consistencia visual */
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.28s ease, filter 0.25s, background 0.25s;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  outline: none;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.abm-action-btn:hover { transform: translateY(-2px); }
+.abm-action-btn:active { transform: translateY(-1px); }
+.abm-action-btn:focus-visible { box-shadow: 0 0 0 3px rgba(59,130,246,0.25); }
+
+/* --- Date picker (migrated from ParametroComision legacy) --- */
+.abm-datepicker, .parametro-datepicker { /* mantener clase vieja por compat */
+  width: 100%;
+  background: #EAF1FF;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid #ccd9ee;
+  color: #111827;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  transition: border-color .18s, background .18s;
+}
+.abm-datepicker:focus, .parametro-datepicker:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: #fff;
+}
+
+.abm-action-btn.edit {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #fff;
+}
+.abm-action-btn.edit:hover { filter: brightness(1.05); }
+
+.abm-action-btn.delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+}
+
+.abm-action-btn.restore {
+  background: linear-gradient( #ff7300, #ff9500);
+  color: #fff;
+}
+
+.abm-action-btn.rehabilitar {
+  background-color: #10b981; /* Verde esmeralda */
+  color: white;              /* Texto blanco */
+  border: none;
+}
+
+.abm-action-btn.rehabilitar:hover {
+  background-color: #059669; /* Verde más oscuro al pasar el mouse */
+}
+.abm-action-btn.restore:hover { filter: brightness(1.05); }
+
+.abm-action-btn.delete:hover { filter: brightness(1.05); }
+
+/* Activar / Desactivar (estado lógico) */
+.abm-action-btn.activate {
+  background: linear-gradient(135deg, #10b981, #059669); /* emerald tones */
+  color: #fff;
+}
+.abm-action-btn.activate:hover { filter: brightness(1.05); }
+
+.abm-action-btn.deactivate {
+  background: linear-gradient(135deg, #f59e0b, #d97706); /* amber tones */
+  color: #fff;
+}
+.abm-action-btn.deactivate:hover { filter: brightness(1.05); }
+
+/* Botón cancelar (estilo modal confirmar) */
+.abm-action-btn.cancel {
+  background: #f3f4f6;
+  color: #374151;
+  border: 2px solid #e5e7eb;
+  box-shadow: none;
+  font-size: 0.95rem;
+}
+.abm-action-btn.cancel:hover {
+  background: #e5e7eb;
+  color: #1f2937;
+  filter: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.abm-action-btn.cancel:active { transform: translateY(-1px); }
+
+.abm-action-btn:disabled,
+.abm-action-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Botón delineado (Seleccionar todos / Ver permisos) */
+.abm-outline-btn {
+  background: #ffffff;
+  color: #374151;
+  border: 1.5px solid #d1d5db;
+  border-radius: 12px; /* menos circular */
+  padding: 14px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.18s ease;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.abm-outline-btn:hover {
+  background: #f9fafb;
+  border-color: #bfc5cc;
+  transform: translateY(-2px);
+}
+.abm-outline-btn:active { transform: translateY(-1px); }
+.abm-outline-btn:focus-visible { box-shadow: 0 0 0 3px rgba(99,102,241,0.25); }
+
+/* Asegurar altura consistente si conviven distintos tipos */
+.abm-primary-btn,
+.abm-action-btn,
+.abm-outline-btn { min-height: 46px; }
+
+/* Paginación */
+.abm-pagination {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Estado vacío reutilizable */
+.abm-empty {
+  padding: 24px;
+  text-align: center;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* Transición de expansión permisos */
+.permissions-collapse {
+  overflow: hidden;
+  transition: height 0.34s ease;
+  will-change: height;
+}
+.permissions-collapse:not(.expanded) .permission-row {
+  /* Previene tab focus en contenido oculto */
+  pointer-events: none;
+}
+
+/* Fila de herramientas dentro del panel expandido de permisos */
+.permissions-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 16px 24px 8px 24px;
+  align-items: flex-start;
+  border-bottom: 1px solid #f1f2f4;
+  background: #fafbfc;
+  position: sticky;
+  top: 0; /* si el contenedor llega a tener scroll propio */
+  z-index: 1;
+}
+.permissions-tools-left { flex: 1 1 320px; min-width: 240px; }
+.permissions-tools-right { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.permissions-tools-right .abm-action-btn.delete { padding: 14px 20px; }
+@media (max-width: 680px){
+  .permissions-tools-row { flex-direction: column; align-items: stretch; padding: 14px 16px 6px; }
+  .permissions-tools-right { justify-content: flex-start; }
+  .permissions-tools-right .abm-outline-btn, .permissions-tools-right .abm-action-btn { width: 100%; }
+}
+
+/* Descripción de grupo en permisos (mobile stacking) */
+@media (max-width: 640px) {
+  .grupo-descripcion-inline-mobile { display:block; }
+}
+
+
+/* Breakpoints */
+@media (max-width: 992px) {
+  .abm-card { border-radius: 20px; }
+  .abm-table { min-width: 640px; } /* tablets grandes: un poco más de ancho */
+}
+
+@media (max-width: 768px) {
+  .abm-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .abm-controls .search-container {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Habilitar scroll horizontal claro */
+  .table-container { padding: 6px; }
+  .table-scroll { border-radius: 12px; }
+  .abm-table {
+    min-width: 640px; /* un poco más de ancho para columnas legibles */
+    border-spacing: 0 8px; /* filas más compactas */
+  }
+  /* Forzar no-wrap en celdas para que el usuario use scroll horizontal */
+  .abm-table th, .abm-table td { white-space: nowrap; }
+
+  .actions {
+    gap: 8px;
+  }
+  .abm-action-btn {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .abm-page { padding: 8px 4px 16px; }
+  .abm-card {
+    padding: 12px 6px 16px;
+    border-radius: 14px;
+    margin: 8px auto;
+  }
+
+  .abm-primary-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 14px 0;
+  }
+
+  .table-container { padding: 2px; }
+  .abm-table { min-width: 600px; border-spacing: 0 6px; }
+  .abm-table thead th,
+  .abm-table tbody td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .abm-action-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px 0;
+    /* Evita efecto "desacople" en pantallas muy chicas */
+    transform: none !important;
+    transition: background 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+
+
+/* También elimina el "salto" al hacer hover/active en acciones dentro de modales en móviles */
+@media (max-width: 640px) {
+  .abm-modal-actions .abm-action-btn:hover,
+  .abm-modal-actions .abm-primary-btn:hover,
+  .abm-modal-actions .abm-action-btn:active,
+  .abm-modal-actions .abm-primary-btn:active {
+    transform: none !important;
+  }
+}
+
+/* Tabs dentro de contenido de modales: scroll horizontal en mobile */
+.abm-modal-body .nav.nav-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  gap: 6px;
+}
+.abm-modal-body .nav.nav-tabs .nav-link { white-space: nowrap; }
+.abm-modal-body .nav.nav-tabs::-webkit-scrollbar { height: 6px; }
+.abm-modal-body .nav.nav-tabs::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+  .abm-pagination {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+}
+
+/* ===== Fondo blanco robusto para todas las pantallas ABM =====
+  Se aplica mediante clase en <body> agregada desde los componentes.
+  Evita depender de :has() (soporte dispar) y de orden de importaciones. */
+body.abm-white-bg, html.abm-white-bg, #root.abm-white-bg { background:#fff !important; }
+
+
+/* ==== Limpieza de duplicados y media queries mal anidadas (se filtraban estilos de mobile a desktop) ==== */
+/* Reglas responsivas consolidadas ya están definidas arriba. Este bloque elimina fugas que hacían que los botones se apilen en desktop. */
+
+/* === Override final para asegurar acciones horizontales en tablas ABM ===
+   Algunos otros módulos siguen declarando .actions { flex-direction: column !important; }
+   lo que fuerza que en vistas de escritorio nuestros botones Modificar / Eliminar
+   aparezcan uno debajo del otro. Para neutralizarlo sin renombrar todas las clases,
+   usamos un selector más específico (.abm-table .actions) y !important SOLO aquí.
+   Mantener este bloque al final del archivo. */
+.abm-table .actions {
+  flex-direction: row !important;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px; /* reasegura spacing consistente */
+}
+.abm-table .actions .abm-action-btn {
+  width: auto !important; /* evita width:100% heredado de mobile en otros archivos */
+  min-width: 0;
+}
+
+/* En mobile (<=576px) sí queremos que se apilen para mejor usabilidad */
+@media (max-width: 576px) {
+  .abm-table .actions {
+    flex-direction: column !important;
+    align-items: stretch;
+  }
+  .abm-table .actions .abm-action-btn {
+    width: 100% !important;
+  }
+}
+
+/* ==================== PERMISSIONS (ABM Permisos) ==================== */
+/* Tarjeta individual de grupo de permisos */
+.permissions-section {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #f1f2f4;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.section-header { padding: 18px 24px; border-bottom: 1px solid #f1f2f4; display:flex; gap:20px; align-items:flex-start; }
+.section-title { font-size:1.05rem; font-weight:600; color:#111827; }
+
+/* Chip descripción grupo */
+.grupo-desc-chip { font-size:.65rem; font-weight:600; background:#eef2f7; color:#374151; padding:4px 10px; border-radius:12px; line-height:1.1; max-width:480px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* Tabla interna de permisos */
+.permissions-table { display:block; }
+
+.permission-row { padding: 10px 24px; border-bottom:1px solid #f5f6f7; display:flex; align-items:center; gap:12px; transition: background .18s; }
+.permission-row:hover { background:#fafbfc; }
+.permission-row:last-child { border-bottom:none; }
+
+.permission-route { font-family: 'Courier New', monospace; font-weight:500; font-size:.82rem; color:#1f2937; display:flex; align-items:center; }
+
+.permission-method { display:inline-block; padding:4px 8px; border-radius:6px; font-size:.60rem; font-weight:700; letter-spacing:.5px; text-transform:uppercase; user-select:none; }
+.method-get { background:#d1ecf1; color:#0c5460; }
+.method-post { background:#d4edda; color:#155724; }
+.method-put { background:#fff3cd; color:#856404; }
+.method-delete { background:#f8d7da; color:#721c24; }
+
+/* Contador de seleccion (restaurado) */
+.selected-count { background:#eef2f7; color:#374151; font-size:.70rem; font-weight:600; padding:4px 10px; border-radius:999px; line-height:1; white-space:nowrap; }
+.selected-count.positive { background:#d4edda; color:#155724; }
+
+.permission-actions { display:flex; gap:8px; }
+@media (max-width:640px){ .permission-row { flex-wrap:wrap; align-items:flex-start; } .permission-actions { width:100%; } }
+
+/* Checkbox column alignment fix */
+.permission-row input[type=checkbox] { margin:0; }
+
+/* Cuando se seleccionan permisos (podríamos resaltar la fila más adelante) */
+.permission-row.selected { background:#eef6ff; }
+
+/* Estilos faltantes para listas en modales de permisos (añadir / nuevo grupo) */
+.permissions-list { max-height: 320px; overflow-y:auto; border:1px solid #eef1f4; border-radius:12px; padding:4px 6px; background:#fff; }
+.permissions-list::-webkit-scrollbar { width:8px; }
+.permissions-list::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:4px; }
+.permission-item { border:1px solid transparent; border-radius:10px; transition: background .18s, border-color .18s; }
+.permission-item:hover { background:#f5f7fa; }
+.permission-item.selected { background:#eef6ff; border-color:#b6d9ff; }
+
+/* Asegurar botones dentro de abm-modal-actions visibles aunque haya overflow previo */
+.abm-modal-actions { position:sticky; bottom:0; background:linear-gradient(to top, #fff 70%, rgba(255,255,255,0)); padding-top:12px; }
+
+/* Elevar feedback modals sobre cualquier otro overlay interno */
+.abm-modal-overlay.feedback { z-index: 1100; }
+
+/* Unificar botones dentro de contenedores modales para misma jerarquía visual */
+.abm-modal-actions .abm-primary-btn,
+.abm-modal-actions .abm-action-btn { font-size: 1rem; }
+
+/* ==== MODAL CLOSE BUTTON (Estilo base único reutilizado por todos los modales ABM) ==== */
+.abm-modal-close {
+  all: unset;
+  position: absolute;
+  top: max(8px, env(safe-area-inset-top));
+  inset-inline-end: 8px; /* soporta RTL */
+  display: grid !important;
+  place-items: center;
+  /* Usar background-color (no shorthand) para no borrar el background-image SVG */
+  background-color: #ff6b6b;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 9999px;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  aspect-ratio: 1 / 1;
+  z-index: 2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  transition: background .2s, transform .1s;
+  flex: 0 0 auto !important;
+  line-height: 1;
+  font-size: 16px;
+  /* Icono X (mismo SVG original) embebido como background para no repetir el <svg> en cada modal */
+  background-image: url("data:image/svg+xml;utf8,<svg%20width='14'%20height='14'%20viewBox='0%200%2016%2016'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'><line%20x1='4'%20y1='4'%20x2='12'%20y2='12'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'/><line%20x1='12'%20y1='4'%20x2='4'%20y2='12'%20stroke='white'%20stroke-width='2'%20stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+}
+.abm-modal-close:hover { background-color: #ff4d4f; }
+.abm-modal-close:active { transform: scale(.96); }
+.abm-modal-close:focus { outline: 2px solid #ffb3b3; outline-offset: 2px; }
+/* Oculta cualquier <svg> inline previo para migración progresiva */
+.abm-modal-close > svg { display: none !important; }
+@media (max-width: 576px) {
+  .abm-modal-close {
+    top: max(6px, env(safe-area-inset-top));
+    inset-inline-end: 6px;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    max-width: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+  }
+}
+/* ===================================================================== */
+
+/* === Modal base compartido (overlay + contenedor) === */
+.abm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  overscroll-behavior: contain;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Variant: full-page scroll for the popup (no inner body scroll) */
+.abm-modal-overlay.page-scroll {
+  /* Overlay scrolleable y centrado inicial del popup */
+  display: grid;
+  place-items: center;
+  overflow-y: auto; /* overlay becomes scroll container */
+  padding-top: max(24px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+@keyframes abmModalSlideIn { from { opacity:0; transform: scale(.95) translateY(-12px);} to { opacity:1; transform: scale(1) translateY(0);} }
+
+.abm-modal-shell {
+  position: relative;
+  background:#fff;
+  border-radius:16px;
+  width:90%;
+  max-width:500px;
+  box-shadow:0 25px 50px -12px rgba(0,0,0,.25);
+  animation: abmModalSlideIn .3s cubic-bezier(.34,1.56,.64,1);
+  padding:24px 56px 24px 24px; /* espacio para la X */
+}
+/* Cuerpo scrollable para modales con listas grandes */
+.abm-modal-body { max-height: 68vh; overflow-y:auto; overscroll-behavior:contain; padding-right:4px; }
+.abm-modal-body::-webkit-scrollbar { width:8px; }
+.abm-modal-body::-webkit-scrollbar-track { background:transparent; }
+.abm-modal-body::-webkit-scrollbar-thumb { background:#c7ccd2; border-radius:4px; }
+.abm-modal-body::-webkit-scrollbar-thumb:hover { background:#b0b6bd; }
+
+/* In page-scroll variant, disable inner scroll and let overlay scroll */
+.abm-modal-overlay.page-scroll .abm-modal-body {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+/* Solo mantener acciones sticky cuando el cuerpo del modal tiene scroll interno */
+.abm-modal-overlay:not(.page-scroll) .abm-modal-actions {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(to top, #fff 70%, rgba(255,255,255,0));
+  padding-top: 12px;
+}
+.abm-modal-overlay.page-scroll .abm-modal-actions {
+  position: static;
+  background: #fff;
+  padding-top: 12px;
+}
+
+body.abm-no-scroll { overflow:hidden !important; }
+@media (max-width:576px){
+  .abm-modal-shell { width:96%; max-width: 96%; border-radius:14px; padding:16px 64px 16px 16px; }
+}
+
+/* Layout de acciones dentro del modal */
+.abm-modal-actions {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:8px;
+  align-items:stretch;
+}
+@media (max-width:380px){ .abm-modal-actions { grid-template-columns:1fr; } }
+.abm-modal-actions > * { width:100%; }
+
+/* Input tipo pill reutilizable */
+.abm-pill-input {
+  background-color:#e9ecef;
+  border:none;
+  border-radius:25px;
+  padding:12px 20px;
+  font-size:1rem;
+  width:100%;
+  box-sizing:border-box;
+}
+.abm-pill-input:focus { outline:2px solid #cbd5e1; }
+
+.filtro-corto {
+  min-width: 0 !important;
+  width: 180px !important;
+  max-width: 180px !important;
+}

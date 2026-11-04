@@ -1,0 +1,102 @@
+/* Provincia.css reducido: solo estilos de popup y validación que no están en abm-shared */
+/* Layout, tabla, botones de acción y buscador ahora usan abm-shared */
+
+.abm-action-btn.success {
+    background-color: #10b981;
+    color: white;
+}
+
+.abm-action-btn.success:hover {
+    background-color: #059669;
+}
+
+/* Popup overlay */
+.prov-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Popup container */
+.prov-popup {
+    background: #fff;
+    padding: 1.5em;
+    border-radius: 16px;
+    min-width: 400px;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: fit-content;
+    position: relative;
+    box-shadow: 0 20px 50px -12px rgba(0,0,0,0.25);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Botón de cierre ahora unificado en abm-shared.css (clase .abm-modal-close y aliases) */
+
+.prov-popup-form { margin: 1em 0; }
+.prov-popup-form label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+.prov-popup-form input {
+    width: 100%;
+    background: #fff;
+    font-size: 0.95rem;
+    padding: 0.75em 1em;
+    border-radius: 10px;
+    border: 1.5px solid #d1d5db;
+    margin-bottom: 0.9em;
+    color: #111827;
+    box-sizing: border-box;
+    transition: border-color 0.18s ease, box-shadow 0.25s ease;
+}
+.prov-popup-form input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.25);
+}
+
+.prov-input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.25) !important;
+}
+.prov-error-msg {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: -0.3em;
+    margin-bottom: 0.8em;
+    padding-left: 0.25em;
+}
+
+.prov-popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 1.2em;
+    padding-top: 1em;
+    border-top: 1px solid #e5e7eb;
+}
+.prov-popup-actions .abm-action-btn { min-width: 140px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .prov-popup { min-width: 320px; max-width: 95vw; padding: 1.2em; }
+    .prov-popup-actions { flex-direction: column; }
+    .prov-popup-actions .abm-action-btn { width: 100%; }
+}
+@media (max-width: 480px) {
+    .prov-popup { min-width: 280px; max-width: 98vw; padding: 1em; }
+    .prov-popup-form input { font-size: 16px; }
+}
+
+/* Fin archivo reducido */

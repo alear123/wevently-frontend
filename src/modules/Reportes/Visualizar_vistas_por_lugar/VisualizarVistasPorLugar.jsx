@@ -1,0 +1,753 @@
+import { useEffect, useState, useMemo, useCallback } from "react";
+import Navbar_Propietario from '../../../common/layouts/Navbar_Propietario'
+import Breadcrumbs from '../../../common/layouts/Breadcrumbs';
+import ModalAccionExito from '../../../common/layouts/ModalAccionExito';
+import Modal_Error from '../../../common/layouts/ModalError';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler
+} from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
+
+import ReportesBar from '../src/components/ReportesBar';
+import { useReportesModal } from '../src/ReportesModalContext';
+import { useLocation, useNavigate } from 'react-router-dom';
+import FiltrosReporte from './src/components/FiltrosReporte';
+import FiltroTipo from './src/components/FiltroTipo';
+import GraficoBarras from './src/components/GraficoBarras';
+import GraficoLineal from '../src/components/GraficoLineal';
+import TablaReporte from './src/components/TablaReporte';
+import TarjetaResumen from '../Visualizar_cantidad_de_usuarios_activos/src/components/TarjetaResumen';
+import { getVistasXLugar } from '../src/api/reportesApi';
+import { getLoggedUser } from "../../../common/Utils";
+import generarPdfVistasPorLugar from '../src/pdf/vistasPorLugarPDF';
+import './src/assets/Reporte.css';
+import '../Visualizar_cantidad_de_usuarios_activos/src/assets/Reporte1.css';
+
+export default function VisualizarVistasPorLugar() {
+    const [datosReporte, setDatosReporte] = useState([]);
+    const [paginaActual, setPaginaActual] = useState(1);
+    const [tipoFiltro, setTipoFiltro] = useState('Todos');
+    const [tipoAgrupacion, setTipoAgrupacion] = useState('dia');
+
+    const [mostrarPopupInicial, setMostrarPopupInicial] = useState(false);
+    const [fechasInicializadas, setFechasInicializadas] = useState(false);
+    const [fechaDesde, setFechaDesde] = useState(null);
+    const [fechaHasta, setFechaHasta] = useState(null);
+
+    const [showExito, setShowExito] = useState(false);
+    const [exitoTitulo, setExitoTitulo] = useState('');
+    const [exitoMensaje, setExitoMensaje] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [errorTitulo, setErrorTitulo] = useState('');
+    const [errorMensaje, setErrorMensaje] = useState('');
+    const [cargando, setCargando] = useState(false);
+    const [error, setError] = useState(null);
+
+    const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('Todos');
+    const [localidadSeleccionada, setLocalidadSeleccionada] = useState('Todos');
+    const [lugarSeleccionado, setLugarSeleccionado] = useState('Todos');
+
+    const provinciasDisponibles = useMemo(() => {
+        if (!Array.isArray(datosReporte)) return [];
+        const set = new Set(datosReporte.map(d => d.provincia).filter(Boolean));
+        return ['Todos', ...Array.from(set).sort()];
+    }, [datosReporte]);
+    const localidadesDisponibles = useMemo(() => {
+        if (!Array.isArray(datosReporte)) return [];
+        const filtered = datosReporte.filter(d => !provinciaSeleccionada || provinciaSeleccionada === 'Todos' ? true : d.provincia === provinciaSeleccionada);
+        const set = new Set(filtered.map(d => d.localidad).filter(Boolean));
+        return ['Todos', ...Array.from(set).sort()];
+    }, [datosReporte, provinciaSeleccionada]);
+    const lugaresDisponibles = useMemo(() => {
+        if (!Array.isArray(datosReporte)) return [];
+        let arr = datosReporte;
+        if (provinciaSeleccionada && provinciaSeleccionada !== 'Todos') arr = arr.filter(d => d.provincia === provinciaSeleccionada);
+        if (localidadSeleccionada && localidadSeleccionada !== 'Todos') arr = arr.filter(d => d.localidad === localidadSeleccionada);
+        const set = new Set(arr.map(d => d.nombrelugar).filter(Boolean));
+        return ['Todos', ...Array.from(set).sort()];
+    }, [datosReporte, provinciaSeleccionada, localidadSeleccionada]);
+
+    useEffect(() => {
+        if (!Array.isArray(datosReporte) || datosReporte.length === 0) return;
+        const firstItem = datosReporte[0];
+        const firstLugar = firstItem.nombrelugar;
+        const names = datosReporte.map(d => d.nombrelugar);
+        if (!lugarSeleccionado || lugarSeleccionado === 'Todos' || !names.includes(lugarSeleccionado)) {
+            setLugarSeleccionado(firstLugar);
+            setTipoFiltro(firstLugar);
+        }
+    }, [datosReporte]);
+
+    const agruparDatos = useCallback((datosLugares, tipo, esFiltroIndividual = false) => {
+        if (!Array.isArray(datosLugares) || datosLugares.length === 0) return [];
+        if (esFiltroIndividual && tipo === 'dia' && datosLugares.length === 1) {
+            const lugar = datosLugares[0];
+            return (lugar.datos || []).map(d => ({
+                fecha: d.fecha,
+                cantidad: Number(d.cantidad || 0),
+                lugares: lugar.nombrelugar,
+                tipoAgrupacion: tipo
+            }));
+        }
+        const acumulador = {};
+        datosLugares.forEach(lugar => {
+            if (!Array.isArray(lugar.datos)) return;
+            lugar.datos.forEach(d => {
+                const fechaStr = d.fecha;
+                const cantidad = Number(d.cantidad || 0);
+                let key = fechaStr;
+                if (tipo === 'semana') {
+                    const dt = new Date(fechaStr + 'T00:00:00');
+                    const day = dt.getDay();
+                    const diff = (day + 6) % 7;
+                    const monday = new Date(dt);
+                    monday.setDate(dt.getDate() - diff);
+                    key = monday.toISOString().slice(0, 10);
+                } else if (tipo === 'mes') {
+                    key = fechaStr.slice(0, 7);
+                }
+                if (!acumulador[key]) {
+                    acumulador[key] = {
+                        fecha: key,
+                        cantidad: 0,
+                        lugares: new Set()
+                    };
+                }
+                acumulador[key].cantidad += cantidad;
+                acumulador[key].lugares.add(lugar.nombrelugar);
+            });
+        });
+        const result = Object.values(acumulador).map(r => ({
+            fecha: r.fecha,
+            cantidad: r.cantidad,
+            lugares: Array.from(r.lugares).sort().join(', '),
+            tipoAgrupacion: tipo
+        }));
+        result.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+        return result;
+    }, []);
+
+    const datosFiltradosParaMostrar = useMemo(() => {
+        if (!Array.isArray(datosReporte) || datosReporte.length === 0) return [];
+        let arr = [...datosReporte];
+        if (provinciaSeleccionada && provinciaSeleccionada !== 'Todos') arr = arr.filter(d => d.provincia === provinciaSeleccionada);
+        if (localidadSeleccionada && localidadSeleccionada !== 'Todos') arr = arr.filter(d => d.localidad === localidadSeleccionada);
+        if (lugarSeleccionado && lugarSeleccionado !== 'Todos') arr = arr.filter(d => d.nombrelugar === lugarSeleccionado);
+        if (arr.length === 0) return [];
+        const esFiltroIndividual = lugarSeleccionado && lugarSeleccionado !== 'Todos';
+        return agruparDatos(arr, tipoAgrupacion, esFiltroIndividual);
+    }, [datosReporte, provinciaSeleccionada, localidadSeleccionada, lugarSeleccionado, tipoAgrupacion, agruparDatos]);
+
+    const handleProvinciaChange = (valor) => {
+        setProvinciaSeleccionada(valor); setLocalidadSeleccionada('Todos'); setLugarSeleccionado('Todos'); setPaginaActual(1);
+    };
+    const handleLocalidadChange = (valor) => {
+        setLocalidadSeleccionada(valor); setLugarSeleccionado('Todos'); setPaginaActual(1);
+    };
+    const handleLugarChange = (valor) => {
+        setLugarSeleccionado(valor); setTipoFiltro(valor); setPaginaActual(1);
+    };
+
+    // Obtener los datos del lugar seleccionado
+    const lugarSeleccionadoData = useMemo(() => {
+        if (!Array.isArray(datosReporte) || datosReporte.length === 0) return null;
+        if (lugarSeleccionado === 'Todos') return null;
+
+        // Filtrar por provincia y localidad primero
+        let arr = [...datosReporte];
+        if (provinciaSeleccionada && provinciaSeleccionada !== 'Todos') {
+            arr = arr.filter(d => d.provincia === provinciaSeleccionada);
+        }
+        if (localidadSeleccionada && localidadSeleccionada !== 'Todos') {
+            arr = arr.filter(d => d.localidad === localidadSeleccionada);
+        }
+
+        return arr.find(d => d.nombrelugar === lugarSeleccionado) || null;
+    }, [datosReporte, lugarSeleccionado, provinciaSeleccionada, localidadSeleccionada]);
+
+    // Resumen de contrataciones y dinero ganado
+    const resumenContrataciones = useMemo(() => {
+        if (!lugarSeleccionadoData?.cantidadContrataciones) {
+            return { cantidadContrataciones: 0, dineroGanado: 0 };
+        }
+        return {
+            cantidadContrataciones: lugarSeleccionadoData.cantidadContrataciones.cantidadContrataciones || 0,
+            dineroGanado: Number(lugarSeleccionadoData.cantidadContrataciones.dineroGanado || 0).toFixed(2)
+        };
+    }, [lugarSeleccionadoData]);
+
+    // Datos de ganancias diarias del lugar seleccionado con agrupación
+    const datosGananciasDiarias = useMemo(() => {
+        if (!lugarSeleccionadoData?.cantidadContrataciones?.gananciasDiarias) return [];
+
+        const gananciasCrudas = lugarSeleccionadoData.cantidadContrataciones.gananciasDiarias;
+
+        // Si es por día, devolver directamente
+        if (tipoAgrupacion === 'dia') {
+            return gananciasCrudas.map(item => ({
+                fecha: item.fecha,
+                cantidad: Number(item.cantidad || 0),
+                label: item.fecha
+            }));
+        }
+
+        // Agrupar por semana o mes
+        const acumulador = {};
+        gananciasCrudas.forEach(item => {
+            const fechaStr = item.fecha;
+            const cantidad = Number(item.cantidad || 0);
+            let key = fechaStr;
+
+            if (tipoAgrupacion === 'semana') {
+                const dt = new Date(fechaStr + 'T00:00:00');
+                const day = dt.getDay();
+                const diff = (day + 6) % 7;
+                const monday = new Date(dt);
+                monday.setDate(dt.getDate() - diff);
+                key = monday.toISOString().slice(0, 10);
+            } else if (tipoAgrupacion === 'mes') {
+                key = fechaStr.slice(0, 7) + '-01'; // Primer día del mes
+            }
+
+            if (!acumulador[key]) {
+                acumulador[key] = {
+                    fecha: key,
+                    cantidad: 0
+                };
+            }
+            acumulador[key].cantidad += cantidad;
+        });
+
+        const result = Object.values(acumulador).map(r => ({
+            fecha: r.fecha,
+            cantidad: r.cantidad,
+            label: r.fecha
+        }));
+
+        result.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+        return result;
+    }, [lugarSeleccionadoData, tipoAgrupacion]);
+
+    const tituloReporte = 'Visualizaciones de vistas por lugar';
+    const subtituloReporte = 'Podés ver la cantidad de visitas que recibió tu/s lugares en el periódo elegido.';
+    const tituloTabla = 'Visualizaciones';
+    const tituloGrafico = `Cantidad de visualizaciones - ${lugarSeleccionado}`;
+
+    function parseFechaLocal(fechaStr) {
+        if (!fechaStr) return null;
+        const [y, m, d] = fechaStr.split('-');
+        return new Date(Number(y), Number(m) - 1, Number(d), 0, 0, 0, 0);
+    }
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { showReportesModal } = useReportesModal ? useReportesModal() : { showReportesModal: () => { } };
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const desdeParam = params.get('desde');
+        const hastaParam = params.get('hasta');
+        if (desdeParam && hastaParam) {
+            const desde = parseFechaLocal(desdeParam);
+            const hasta = parseFechaLocal(hastaParam);
+            setFechaDesde(desde);
+            setFechaHasta(hasta);
+            setFechasInicializadas(true);
+            cargarDatosConfechas(desde, hasta);
+        } else {
+            setMostrarPopupInicial(false);
+        }
+    }, [location.search]);
+
+    const cargarDatosConfechas = async (desde, hasta) => {
+        if (desde > hasta) return;
+        setCargando(true);
+        setError(null);
+        try {
+            const formatearFecha = (fecha) => {
+                const anio = fecha.getFullYear();
+                const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+                const dia = String(fecha.getDate()).padStart(2, '0');
+                return `${anio}-${mes}-${dia}`;
+            };
+            const parametros = {
+                desde: formatearFecha(desde),
+                hasta: formatearFecha(hasta)
+            };
+            const datos = await getVistasXLugar({ desde: parametros.desde, hasta: parametros.hasta });
+            console.log('Datos:', datos);
+            const normalized = Array.isArray(datos) ? datos.map(item => {
+                const rawDatos = Array.isArray(item.datos) ? item.datos : (Array.isArray(item.data) ? item.data : []);
+                const cleaned = rawDatos.map(d => {
+                    const rawFecha = d.fecha ?? d.fechaIngreso ?? d.fecha_ingreso ?? d.fechaInicial ?? d.date ?? '';
+                    const fecha = String(rawFecha || '').slice(0, 10);
+                    const rawCantidad = d.cantidad ?? d.cantidadIngresos ?? d.cantidad_ingresos ?? d.value ?? d.valor ?? d.total ?? d.count ?? 0;
+                    const cantidad = Number(rawCantidad ?? 0);
+                    if (Number.isNaN(cantidad)) {
+                        console.warn('Normalizacion: cantidad NaN para registro', { itemId: item.idLugar ?? item.id, rawCantidad, d });
+                    }
+                    return {
+                        ...d,
+                        fecha,
+                        cantidad: Number.isNaN(cantidad) ? 0 : cantidad
+                    };
+                });
+                return {
+                    idLugar: item.idLugar ?? item.id_lugar ?? item.id ?? null,
+                    nombrelugar: item.nombrelugar ?? item.nombreLugar ?? item.nombre ?? '',
+                    provincia: item.provincia ?? item.province ?? '',
+                    localidad: item.localidad ?? item.localidadName ?? '',
+                    rangoFechas: item.rangoFechas ?? item.rango_fechas ?? null,
+                    datos: cleaned,
+                    cantidadContrataciones: item.cantidadContrataciones ?? null
+                };
+            }) : [];
+            if (normalized.length) {
+                try {
+                    const sample = normalized[0];
+                    const last = sample.datos && sample.datos.length ? sample.datos[sample.datos.length - 1] : null;
+                    console.log('Normalizado sample primer lugar, ultimo registro:', sample.nombrelugar, last);
+                } catch (e) { /* ignore */ }
+            }
+            console.log('Normalizado:', normalized);
+            setDatosReporte(normalized);
+        } catch (error) {
+            setError(error);
+            manejarError('Ups! Algo salió mal.', error.message || 'Tranqui, somos nosotros no hiciste nada mal');
+        } finally {
+            setCargando(false);
+        }
+    };
+
+    const cargarDatos = () => {
+        if (fechaDesde && fechaHasta) cargarDatosConfechas(fechaDesde, fechaHasta);
+    };
+
+    const manejarExito = (titulo, mensaje) => {
+        setExitoTitulo(titulo);
+        setExitoMensaje(mensaje);
+        setShowExito(true);
+    };
+    const manejarError = (titulo, mensaje) => {
+        setErrorTitulo(titulo);
+        setErrorMensaje(mensaje);
+        setShowError(true);
+    };
+
+    const handleSeleccionFechasIniciales = ({ fechaDesde: desde, fechaHasta: hasta }) => {
+        setFechaDesde(desde);
+        setFechaHasta(hasta);
+        setFechasInicializadas(true);
+        setMostrarPopupInicial(false);
+        cargarDatosConfechas(desde, hasta);
+    };
+    const handleFiltrosChange = (nuevosFiltros) => {
+        if (nuevosFiltros.fechaDesde) setFechaDesde(nuevosFiltros.fechaDesde);
+        if (nuevosFiltros.fechaHasta) setFechaHasta(nuevosFiltros.fechaHasta);
+    };
+    const handleCancelarPopupInicial = () => setMostrarPopupInicial(false);
+
+    const validarRangoFechas = () => {
+        if (!fechaDesde || !fechaHasta) {
+            return {
+                esValido: false,
+                mensaje: 'Debe elegir ambas fechas'
+            };
+        }
+        if (fechaDesde > fechaHasta) {
+            return {
+                esValido: false,
+                mensaje: 'La fecha desde no puede ser mayor a la fecha hasta'
+            };
+        }
+        const hoy = new Date(); hoy.setHours(23, 59, 59, 999);
+        if (fechaDesde > hoy || fechaHasta > hoy) {
+            return {
+                esValido: false,
+                mensaje: 'No se pueden elegir fechas futuras'
+            };
+        }
+        return { esValido: true };
+    };
+
+    const handleDescargarReporte = async () => {
+        try {
+            let filtroTexto = 'Todos los lugares';
+            if (lugarSeleccionado && lugarSeleccionado !== 'Todos') filtroTexto = lugarSeleccionado;
+            else if (localidadSeleccionada && localidadSeleccionada !== 'Todos') filtroTexto = `Localidad: ${localidadSeleccionada}`;
+            else if (provinciaSeleccionada && provinciaSeleccionada !== 'Todos') filtroTexto = `Provincia: ${provinciaSeleccionada}`;
+
+            await generarPdfVistasPorLugar({
+                titulo: tituloReporte,
+                subtitulo: `Desde ${fechaDesde.toLocaleDateString('es-AR')} hasta ${fechaHasta.toLocaleDateString('es-AR')}`,
+                usuario: (getLoggedUser().email || ''),
+                fechaDesde,
+                fechaHasta,
+                filtroTexto,
+                agrupacion: tipoAgrupacion,
+                datosTabla: datosFiltradosParaMostrar,
+                tieneLugarSeleccionado: lugarSeleccionado && lugarSeleccionado !== 'Todos',
+                resumenContrataciones: resumenContrataciones,
+                lugarSeleccionado: lugarSeleccionado
+            });
+        } catch (e) {
+            manejarError('Error al generar el PDF.', e.message || 'Por favor, inténtalo de nuevo.');
+        } finally {
+            setCargando(false);
+        }
+    };
+
+    if (!fechasInicializadas) {
+        return (
+            <>
+                <Navbar_Propietario />
+                <ReportesBar onSolicitarRango={() => showReportesModal()} />
+                <div className="reporte-container">
+                    <div className="reporte-content">
+                        <Breadcrumbs />
+                        <div className="reporte-header">
+                            <h1 className="reporte-titulo">{tituloReporte}</h1>
+                            <p className="reporte-subtitulo">{subtituloReporte}</p>
+                        </div>
+                        <div style={{ textAlign: 'center', padding: '40px 20px', color: '#666' }}>
+                            <p>No se recibieron fechas. Volvé a abrir “Mis Reportes” y seleccioná un rango.</p>
+                            <button
+                                onClick={() => navigate(-1)}
+                                style={{ marginTop: 16, padding: '10px 22px', background: '#2433FF', color: '#fff', border: 'none', borderRadius: 10, cursor: 'pointer' }}
+                            >Volver</button>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+    if (!fechasInicializadas && !mostrarPopupInicial) {
+        return (
+            <>
+                <Navbar_Propietario />
+                <div className="reporte-container">
+                    <div className="reporte-content">
+                        <Breadcrumbs />
+                        <div className="reporte-header">
+                            <h1 className="reporte-titulo">{tituloReporte}</h1>
+                            <p className="reporte-subtitulo">{subtituloReporte}</p>
+                        </div>
+                        <div style={{
+                            textAlign: 'center',
+                            padding: '40px 20px'
+                        }}>
+                            <p style={{ marginBottom: '20px', color: '#666' }}>
+                                Es necesario seleccionar un rango de fechas para generar el reporte.
+                            </p>
+                            <button
+                                onClick={() => setMostrarPopupInicial(true)}
+                                style={{
+                                    padding: '12px 24px',
+                                    backgroundColor: '#2433ff',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    fontSize: '14px',
+                                    cursor: 'pointer',
+                                    fontWeight: '500'
+                                }}
+                            >
+                                Seleccionar fechas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+    if (error) {
+        return (
+            <>
+                <Navbar_Propietario />
+                <div className="reporte-container">
+                    <div className="error-container">
+                        <p>Error al cargar los datos: {error.message}</p>
+                        <button onClick={cargarDatos} className="btn-reintentar">
+                            Reintentar
+                        </button>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    // Mostrar mensaje cuando no hay datos disponibles (usuario nuevo sin lugares)
+    if (fechasInicializadas && !cargando && Array.isArray(datosReporte) && datosReporte.length === 0) {
+        return (
+            <>
+                <Navbar_Propietario />
+                <ReportesBar onSolicitarRango={() => showReportesModal()} />
+                <div className="reporte-container">
+                    <div className="reporte-content">
+                        <Breadcrumbs />
+                        <div className="reporte-header">
+                            <h1 className="reporte-titulo">{tituloReporte}</h1>
+                            <p className="reporte-subtitulo">{subtituloReporte}</p>
+                        </div>
+                        <div style={{ textAlign: 'center', padding: '60px 20px', color: '#666' }}>
+                            <div style={{
+                                marginBottom: '20px'
+                            }}>
+                                <FontAwesomeIcon
+                                    icon={faChartLine}
+                                    style={{
+                                        fontSize: '64px',
+                                        color: '#2433FF',
+                                        opacity: 0.3
+                                    }}
+                                />
+                            </div>
+                            <h3 style={{
+                                fontSize: '20px',
+                                fontWeight: '600',
+                                marginBottom: '12px',
+                                color: '#333'
+                            }}>
+                                No hay información disponible
+                            </h3>
+                            <p style={{
+                                fontSize: '15px',
+                                marginBottom: '8px',
+                                maxWidth: '500px',
+                                margin: '0 auto 24px'
+                            }}>
+                                Todavía no tenés lugares registrados o no hay visualizaciones en el período seleccionado.
+                            </p>
+                            <p style={{
+                                fontSize: '14px',
+                                color: '#999',
+                                marginBottom: '30px'
+                            }}>
+                                Una vez que registres tus lugares y recibas visitas, podrás ver tus estadísticas aquí.
+                            </p>
+                            <button
+                                onClick={() => navigate(-1)}
+                                style={{
+                                    marginTop: 10,
+                                    padding: '12px 24px',
+                                    background: '#2433FF',
+                                    color: '#fff',
+                                    border: 'none',
+                                    borderRadius: 10,
+                                    cursor: 'pointer',
+                                    fontSize: '14px',
+                                    fontWeight: '500'
+                                }}
+                            >
+                                Volver
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    const validacion = validarRangoFechas();
+
+    return (
+        <>
+            <Navbar_Propietario />
+            <ReportesBar onSolicitarRango={() => showReportesModal()} />
+            <div className="reporte-container">
+                <div className="reporte-content">
+                    <Breadcrumbs />
+                    <div className="reporte-header">
+                        <h1 className="reporte-titulo">{tituloReporte}</h1>
+                        <p className="reporte-subtitulo">{subtituloReporte}</p>
+                    </div>
+                    {datosReporte && validacion.esValido && (
+                        <div className="rango-info-container">
+                            <div className="rango-info">
+                                <span className="rango-texto">
+                                    Mostrando datos desde {fechaDesde && fechaDesde.toLocaleDateString('es-AR')} hasta {fechaHasta && fechaHasta.toLocaleDateString('es-AR')}
+                                </span>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="chart-filtros">
+                        {/* Grupo 1: Filtros geográficos */}
+                        <div className="filtro-above">
+                            <div className="filtro-label-above">Provincia</div>
+                            <FiltroTipo
+                                tiposDisponibles={provinciasDisponibles}
+                                tipoSeleccionado={provinciaSeleccionada}
+                                onChange={handleProvinciaChange}
+                                compact={true}
+                            />
+                        </div>
+
+                        <div className="filtro-above">
+                            <div className="filtro-label-above">Localidad</div>
+                            <FiltroTipo
+                                tiposDisponibles={localidadesDisponibles}
+                                tipoSeleccionado={localidadSeleccionada}
+                                onChange={handleLocalidadChange}
+                                compact={true}
+                            />
+                        </div>
+
+                        <div className="filtro-above">
+                            <div className="filtro-label-above">Lugar</div>
+                            <FiltroTipo
+                                tiposDisponibles={lugaresDisponibles}
+                                tipoSeleccionado={lugarSeleccionado}
+                                onChange={handleLugarChange}
+                                compact={true}
+                            />
+                        </div>
+
+                        {/* Grupo 2: Agrupación */}
+                        <div className="filtro-above">
+                            <div className="filtro-label-above">Agrupación</div>
+                            <div className="agrupacion-btns-wrapper">
+                                {['dia', 'semana', 'mes'].map(tipo => (
+                                    <button
+                                        key={tipo}
+                                        className={`btn-filtro-grafico ${tipoAgrupacion === tipo ? 'activo' : ''}`}
+                                        onClick={() => setTipoAgrupacion(tipo)}
+                                        disabled={cargando}
+                                    >
+                                        {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Grupo 3: Fechas */}
+                        <div className="filtro-above filtro-fechas">
+                            <div className="filtro-label-above">Fechas</div>
+                            <FiltrosReporte
+                                fechaDesde={fechaDesde}
+                                fechaHasta={fechaHasta}
+                                onFiltrosChange={handleFiltrosChange}
+                                onAplicarFiltros={cargarDatos}
+                                validacion={validacion}
+                                cargando={cargando}
+                                modoCompacto={true}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Resumen de contrataciones y dinero ganado - solo si hay un lugar seleccionado */}
+                    {lugarSeleccionado && lugarSeleccionado !== 'Todos' && (
+                        <div className="vca-resumen-container" id="resumen-contrataciones-pdf" style={{ marginTop: '30px' }}>
+                            <TarjetaResumen
+                                titulocabecera="Contrataciones Totales"
+                                valorResumen={resumenContrataciones.cantidadContrataciones}
+                                descripcionInformativa={`Total de contrataciones de ${lugarSeleccionado}`}
+                                icono="contratacion"
+                                colorIcono="#2433FF"
+                            />
+                            <TarjetaResumen
+                                titulocabecera="Dinero Ganado"
+                                valorResumen={`$${resumenContrataciones.dineroGanado}`}
+                                descripcionInformativa={`Ganancias generadas por ${lugarSeleccionado}`}
+                                icono="dinero"
+                                colorIcono="#10b981"
+                            />
+                        </div>
+                    )}
+                    {Array.isArray(datosReporte) && datosReporte.length > 0 && (
+                        <div className="reporte-chart-section" id="grafico-visualizaciones-pdf">
+                            <div className="chart-header">
+                                <h3 className="chart-titulo">{tituloGrafico}</h3>
+
+                            </div>
+                            <div className="reporte-chart-container">
+                                {cargando ? (
+                                    <div className="loading">Cargando gráfico...</div>
+                                ) : datosFiltradosParaMostrar && datosFiltradosParaMostrar.length > 0 ? (
+                                    <GraficoLineal
+                                        datos={datosFiltradosParaMostrar}
+                                        titulo={tituloGrafico}
+                                        labelDataset={`Visualizaciones ${tipoAgrupacion === 'dia' ? 'diarias' : tipoAgrupacion === 'semana' ? 'semanales' : 'mensuales'}`}
+                                        borderColor="#2433FF"
+                                        backgroundColor="rgba(36, 51, 255, 0.1)"
+                                        height={400}
+                                        mostrarLeyenda={true}
+                                        mostrarTitulo={false}
+                                    />
+                                ) : (
+                                    <div className="grafico-sin-datos">
+                                        <p>No hay datos para el rango seleccionado</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Gráfico de ganancias diarias - solo si hay un lugar seleccionado */}
+                    {lugarSeleccionado && lugarSeleccionado !== 'Todos' && datosGananciasDiarias.length > 0 && (
+                        <div className="reporte-chart-section" id="grafico-ganancias-pdf" style={{ marginTop: '30px' }}>
+                            <div className="chart-header">
+                                <h3 className="chart-titulo">
+                                    Ganancias {tipoAgrupacion === 'dia' ? 'Diarias' : tipoAgrupacion === 'semana' ? 'Semanales' : 'Mensuales'} - {lugarSeleccionado}
+                                </h3>
+                            </div>
+                            <div className="reporte-chart-container">
+                                <GraficoLineal
+                                    datos={datosGananciasDiarias}
+                                    titulo={`Ganancias ${tipoAgrupacion === 'dia' ? 'Diarias' : tipoAgrupacion === 'semana' ? 'Semanales' : 'Mensuales'}`}
+                                    labelDataset={`Ganancias ${tipoAgrupacion === 'dia' ? 'Diarias' : tipoAgrupacion === 'semana' ? 'Semanales' : 'Mensuales'} ($)`}
+                                    borderColor="#10b981"
+                                    backgroundColor="rgba(16, 185, 129, 0.1)"
+                                    height={300}
+                                    mostrarTitulo={false}
+                                    tooltipCallbacks={{
+                                        label: (ctx) =>
+                                            ctx?.parsed?.y !== undefined
+                                                ? `Ganancias: $${ctx.parsed.y}`
+                                                : ''
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
+                {datosFiltradosParaMostrar && datosFiltradosParaMostrar.length > 0 && (
+                    <button
+                        className="btn-descargar-flotante"
+                        onClick={handleDescargarReporte}
+                        disabled={cargando || lugarSeleccionado === 'Todos'}
+                        style={{
+                            opacity: lugarSeleccionado === 'Todos' ? 0.5 : 1,
+                            cursor: lugarSeleccionado === 'Todos' ? 'not-allowed' : 'pointer'
+                        }}
+                    >
+                        {cargando ? 'Generando...' : lugarSeleccionado === 'Todos' ? 'Seleccioná un lugar para descargar' : 'Descargar reporte'}
+                    </button>
+                )}
+            </div>
+            <ModalAccionExito
+                titulo={exitoTitulo}
+                mensaje={exitoMensaje}
+                mostrar={showExito}
+                onAceptar={() => setShowExito(false)}
+            />
+            <Modal_Error
+                titulo={errorTitulo}
+                mensaje={errorMensaje}
+                mostrar={showError}
+                onCerrar={() => setShowError(false)}
+            />
+        </>
+    );
+}

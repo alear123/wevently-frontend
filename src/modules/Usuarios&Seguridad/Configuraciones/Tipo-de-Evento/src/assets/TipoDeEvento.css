@@ -1,0 +1,96 @@
+
+.tipo-evento-header {
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.tipo-evento-title {
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 2rem;
+  color: #222;
+}
+
+.tipo-evento-btn-agregar {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tipo-evento-btn-agregar:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: white;
+}
+
+.tipo-evento-desc {
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+.tipo-evento-card {
+  border: 2px solid #222;
+  border-radius: 20px;
+  padding: 18px;
+  background: #fff;
+  margin-bottom: 32px;
+  overflow-x: auto;
+}
+
+/* --- Responsive styles --- */
+@media (max-width: 768px) {
+  .tipo-evento-header {
+    padding: 1.2rem 0.5rem 0.5rem 0.5rem;
+  }
+  .tipo-evento-title {
+    font-size: 1.4rem;
+  }
+  .tipo-evento-btn-agregar {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+  .tipo-evento-card {
+    padding: 8px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tipo-evento-header {
+    padding: 0.8rem 0.2rem 0.2rem 0.2rem;
+  }
+  .tipo-evento-title {
+    font-size: 1.1rem;
+  }
+  .tipo-evento-btn-agregar {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .tipo-evento-card {
+    padding: 4px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  /* Apila los elementos del header */
+  .d-flex.align-items-center.justify-content-between.mb-3.flex-wrap,
+  .d-flex.align-items-center {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px;
+  }
+  .d-flex.align-items-center.justify-content-between.mb-3.flex-wrap > div,
+  .d-flex.align-items-center > div,
+  .d-flex.align-items-center.justify-content-between.mb-3.flex-wrap > button,
+  .d-flex.align-items-center > button {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  table {
+    min-width: 480px;
+  }
+}

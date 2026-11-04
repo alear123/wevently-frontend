@@ -1,0 +1,76 @@
+.configuraciones-header {
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.configuracion-item {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #e9ecef;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.configuracion-item:hover {
+  background-color: #dee2e6;
+  transform: translateY(-2px);
+}
+
+.configuracion-card-body {
+  padding: 1.2rem 1.5rem;
+}
+
+.configuracion-icon {
+  margin-right: 1rem;
+  font-size: 1.7rem;
+}
+
+.configuracion-title {
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 0;
+  font-size: 1.1rem;
+}
+.buscador-configuraciones {
+  max-width: 420px;
+  width: 100%;
+  margin: 0;
+}
+
+/* --- Responsive styles --- */
+@media (max-width: 768px) {
+  .configuraciones-header .buscador-configuraciones {
+  max-width: 420px; /* Ajustá el valor según lo que prefieras */
+  width: 100%;
+  margin: 0 auto;
+}
+  .configuracion-card-body {
+    padding: 1rem 0.8rem;
+  }
+  .configuracion-icon {
+    font-size: 1.3rem;
+    margin-right: 0.7rem;
+  }
+  .configuracion-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .configuraciones-header {
+    padding: 0.8rem 0.2rem 0.2rem 0.2rem;
+  }
+  .configuracion-card-body {
+    padding: 0.7rem 0.4rem;
+  }
+  .configuracion-icon {
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+  }
+  .configuracion-title {
+    font-size: 0.95rem;
+  }
+  .configuracion-item {
+    border-radius: 10px;
+  }
+}

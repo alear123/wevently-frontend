@@ -1,0 +1,349 @@
+/* ===================== */
+/* === GENERALES (TODOS LOS PASOS) === */
+/* ===================== */
+
+.recuperar-bg {
+  min-height: calc(100vh - 166px);
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recuperar-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  max-width: 500px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+}
+
+.recuperar-logo {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent; 
+}
+
+.recuperar-logo-w,
+.recuperar-logo-ly {
+  color: #2433FF;
+}
+
+.recuperar-logo-event {
+  color: #888;
+}
+
+.recuperar-title {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 1.2rem 0 0.5rem 0;
+}
+
+.recuperar-desc {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.recuperar-input {
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.recuperar-error {
+  color: red;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.recuperar-btn {
+  background: #0033FF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 32px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recuperar-btn:hover {
+  background: #001a99;
+}
+
+.recuperar-btn-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ===================== */
+/* Accesibilidad y pequeños fixes */
+/* ===================== */
+.recuperar-input:focus,
+.recuperar-codigo-input:focus {
+  outline: none;
+  border-color: #2433FF;
+  box-shadow: 0 0 0 3px rgba(36, 51, 255, 0.12);
+}
+
+.recuperar-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(36, 51, 255, 0.28);
+}
+
+.recuperar-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.recuperar-codigo-input {
+  letter-spacing: 0.3rem; /* mejora legibilidad del código */
+}
+
+
+/* ===================== */
+/* === PASO 1: EMAIL === */
+/* ===================== */
+/* (No estilos exclusivos, usa los generales) */
+
+
+/* ===================== */
+/* === PASO 2: CÓDIGO === */
+/* ===================== */
+
+.recuperar-codigo-input-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.recuperar-codigo-input {
+  width: 120px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.recuperar-codigo-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recuperar-codigo-btns .recuperar-btn {
+  min-width: 120px;
+  max-width: 180px;
+  width: auto;
+  flex: 1 1 auto;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.recuperar-codigo-timer {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* ===================== */
+/* === PASO 3: NUEVA CONTRASEÑA === */
+/* ===================== */
+
+.recuperar-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.recuperar-eye-icon {
+  position: absolute;
+  right: 18px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.recuperar-requisitos {
+  font-size: 0.9rem;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+/* ===================== */
+/* === PASO 4: ÉXITO === */
+/* ===================== */
+
+.recuperar-exito-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto 1rem auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #d1fae5;
+  color: #059669;
+  font-size: 2.8rem;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.12);
+}
+
+.recuperar-exito-msg {
+  text-align: center;
+  margin: 2rem 0;
+  font-weight: bold;
+}
+
+.recuperar-exito-link {
+  text-align: right;
+}
+
+.recuperar-exito-link a {
+  color: #222;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+/* ===================== */
+/* === Responsive general === */
+/* ===================== */
+@media (max-width: 768px) {
+  .recuperar-bg {
+    padding: 16px;
+  }
+
+  .recuperar-card {
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+  }
+
+  .recuperar-logo {
+    font-size: 1.8rem;
+  }
+
+  .recuperar-title {
+    font-size: 1.1rem;
+  }
+
+  .recuperar-desc {
+    font-size: 0.95rem;
+  }
+
+  .recuperar-btn-group {
+    justify-content: center;
+  }
+
+  /* Paso 2: Código */
+  .recuperar-codigo-input-group {
+    gap: 12px;
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .recuperar-codigo-input {
+    width: 100%;
+    max-width: 220px;
+    font-size: 1.3rem;
+  }
+
+  .recuperar-codigo-btns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .recuperar-codigo-btns .recuperar-btn {
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    min-width: 0;
+  }
+
+  .recuperar-codigo-timer {
+    text-align: center;
+  }
+
+  /* Paso 3: Nueva contraseña */
+  .recuperar-requisitos {
+    font-size: 0.85rem;
+  }
+
+  /* Paso 4: Éxito */
+  .recuperar-exito-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 2.2rem;
+    margin: 1.2rem auto 0.8rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .recuperar-card {
+    max-width: 100%;
+    padding: 1.25rem 0.9rem;
+  }
+
+  .recuperar-logo {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+  }
+
+  .recuperar-title {
+    font-size: 1rem;
+  }
+
+  .recuperar-input {
+    font-size: 1rem; /* evita zoom en iOS */
+  }
+
+  .recuperar-btn {
+    width: 100%;
+    padding: 10px 18px;
+    font-size: 1rem;
+  }
+
+  /* Paso 2: Código */
+  .recuperar-codigo-input {
+    font-size: 1.1rem;
+    letter-spacing: 0.2rem;
+    max-width: 180px;
+    width: 100%;
+    height: 40px;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  .recuperar-codigo-btns .recuperar-btn {
+    width: 100%;
+    max-width: 180px;
+    margin: 0 auto;
+    min-width: 0;
+  }
+
+  /* Paso 4: Éxito */
+  .recuperar-exito-link {
+    text-align: center;
+  }
+  .recuperar-exito-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    margin: 1rem auto 0.5rem auto;
+  }
+}

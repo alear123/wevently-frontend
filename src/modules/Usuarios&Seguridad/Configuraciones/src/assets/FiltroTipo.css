@@ -1,0 +1,34 @@
+/* Estilos compartidos de FiltroTipo (migrado desde MediosDePago). */
+/* Contenedor principal del filtro */
+.filtro-tipo-container { position: relative; display: inline-block; min-width: 160px; max-width: 300px; width: 100%; }
+.filtro-tipo-button { width:100%; display:flex; align-items:center; justify-content:space-between; gap:.5em; padding:.75em 1em; background:#f9fafb; border:2px solid #e5e7eb; border-radius:20px; font-size:.95em; color:#374151; cursor:pointer; transition:all .2s ease; overflow:hidden; }
+.filtro-tipo-button:hover { background:#fff; border-color:#d1d5db; }
+.filtro-tipo-button:focus { outline:none; border-color:#4B4EFD; box-shadow:0 0 0 3px rgba(75,78,253,0.1); }
+.filtro-tipo-button.active { background:#fff; border-color:#4B4EFD; box-shadow:0 0 0 3px rgba(75,78,253,0.1); }
+.filtro-tipo-label { font-weight:600; color:#6b7280; font-size:.9em; flex-shrink:0; white-space:nowrap; }
+.filtro-tipo-valor { font-weight:500; color:#374151; flex:1; text-align:left; margin-left:.5em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+.filtro-tipo-icon { color:#6b7280; transition:transform .2s ease; flex-shrink:0; }
+.filtro-tipo-icon.rotated { transform:rotate(180deg); }
+.filtro-tipo-dropdown { position:absolute; top:calc(100% + 4px); left:0; right:0; background:#fff; border:1px solid #e5e7eb; border-radius:10px; box-shadow:0 10px 25px rgba(0,0,0,0.1),0 4px 6px rgba(0,0,0,0.05); z-index:1000; max-height:250px; overflow-y:auto; animation:fadeInDown .15s ease; min-width:max-content; width:auto; }
+@keyframes fadeInDown { from { opacity:0; transform:translateY(-10px);} to { opacity:1; transform:translateY(0);} }
+.filtro-tipo-option { width:100%; display:flex; align-items:center; justify-content:space-between; padding:.75em 1em; background:none; border:none; text-align:left; font-size:.95em; color:#374151; cursor:pointer; transition:all .15s ease; border-bottom:1px solid #f3f4f6; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.filtro-tipo-option:last-child { border-bottom:none; }
+.filtro-tipo-option:hover { background:#f8fafc; color:#1f2937; }
+.filtro-tipo-option.selected { background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%); color:#1d4ed8; font-weight:600; }
+.filtro-tipo-option.selected:hover { background:linear-gradient(135deg,#dbeafe 0%,#bfdbfe 100%); }
+.filtro-tipo-option svg { color:#1d4ed8; flex-shrink:0; margin-left:.5em; }
+.filtro-tipo-option-text { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+.filtro-tipo-option.header { font-weight:700; color:#6b7280; background:#f9fafb; cursor:default; }
+.filtro-tipo-option.header:hover { background:#f9fafb; }
+.filtro-tipo-dropdown::-webkit-scrollbar { width:6px; }
+.filtro-tipo-dropdown::-webkit-scrollbar-track { background:#f1f5f9; border-radius:3px; }
+.filtro-tipo-dropdown::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:3px; }
+.filtro-tipo-dropdown::-webkit-scrollbar-thumb:hover { background:#94a3b8; }
+.filtro-tipo-container.compact { min-width:120px; max-width:200px; }
+.filtro-tipo-container.compact .filtro-tipo-label { display:none; }
+.filtro-tipo-container.compact .filtro-tipo-valor { margin-left:0; }
+.filtro-tipo-tooltip { position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:#1f2937; color:#fff; padding:.5em .75em; border-radius:6px; font-size:.85em; white-space:nowrap; z-index:1001; opacity:0; visibility:hidden; transition:all .2s ease; pointer-events:none; }
+.filtro-tipo-tooltip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:#1f2937; }
+.filtro-tipo-container:hover .filtro-tipo-tooltip { opacity:1; visibility:visible; }
+@media (max-width:768px){ .filtro-tipo-container { min-width:140px; max-width:250px;} .filtro-tipo-button { padding:.65em .8em; font-size:.9em;} .filtro-tipo-option { padding:.65em .8em; font-size:.9em;} }
+@media (max-width:480px){ .filtro-tipo-container { min-width:100px; max-width:180px;} .filtro-tipo-label { display:none;} .filtro-tipo-valor { margin-left:0;} }

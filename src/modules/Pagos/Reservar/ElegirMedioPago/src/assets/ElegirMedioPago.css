@@ -1,0 +1,310 @@
+/* Estilos para ElegirMedioPago.css */
+
+.payment-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px 0;
+}
+
+.payment-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.payment-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-top: 20px;
+}
+
+.payment-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.payment-tabs {
+  display: flex;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 30px;
+}
+
+.payment-tab {
+  flex: 1;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-tab.active {
+  color: #3182ce;
+  border-bottom-color: #3182ce;
+  background-color: #ebf8ff;
+}
+
+.payment-tab.inactive {
+  color: #718096;
+}
+
+.payment-tab:hover:not(.active) {
+  color: #4a5568;
+  background-color: #f7fafc;
+}
+
+/* Estilos para formularios */
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-input {
+  flex: 1;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.form-input.error {
+  border-color: #e53e3e;
+}
+
+.form-input.error:focus {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+/* Botones de acción */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: #48bb78;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #38a169;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.btn-secondary {
+  background-color: #718096;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #4a5568;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(113, 128, 150, 0.4);
+}
+
+/* Estilos para MercadoPago */
+.mercadopago-container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.mercadopago-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 25px rgba(0, 180, 216, 0.3);
+}
+
+.mercadopago-icon svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.mercadopago-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 15px;
+}
+
+.mercadopago-description {
+  font-size: 1rem;
+  color: #718096;
+  margin-bottom: 30px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Animaciones de carga */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3182ce;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Estados de éxito y error */
+.success-message {
+  background-color: #c6f6d5;
+  color: #22543d;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #48bb78;
+  margin: 20px 0;
+}
+
+.error-message-container {
+  background-color: #fed7d7;
+  color: #742a2a;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #e53e3e;
+  margin: 20px 0;
+}
+
+.info-message {
+  background-color: #bee3f8;
+  color: #2a4365;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #3182ce;
+  margin: 20px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .payment-content {
+    padding: 0 15px;
+  }
+  
+  .payment-card {
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .payment-tabs {
+    flex-direction: column;
+  }
+  
+  .payment-tab {
+    border-bottom: none;
+    border-left: 3px solid transparent;
+    text-align: left;
+  }
+  
+  .payment-tab.active {
+    border-left-color: #3182ce;
+    border-bottom-color: transparent;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-title {
+    font-size: 1.5rem;
+  }
+  
+  .mercadopago-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .mercadopago-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .form-input {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+}

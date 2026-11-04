@@ -1,0 +1,295 @@
+/* contenedor principal */
+.abm-lugar-contenedor {
+  padding: 2rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  min-height: 100vh;
+}
+
+.modal-backdrop {
+  z-index: 1040 !important;
+}
+
+.modal {
+  z-index: 1050 !important;
+}
+.navbar-fixed {
+  z-index: 1030;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* título principal */
+.titulo-abm-lugar {
+  color: #1e293b;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+/* contenedor del buscador, botón filtros, botón crear lugar */
+.abm-lugar-contenedor-buscador {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.abm-lugar-contenedor-botones {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 10px;
+}
+
+/* botón filtros */
+.abm-lugar-btn-filtros {
+  background: white;
+  border: 2px solid #e2e8f0;
+  color: #475569;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+}
+
+.abm-lugar-btn-filtros:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+/* contenedor de filtros desplegables*/
+.abm-lugar-filtros-panel {
+  display: flex;
+  flex-wrap: wrap;                
+  align-items: center;            
+  justify-content: space-between; 
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* cada filtro */
+.abm-lugar-filtro-desplegable {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  min-width: 220px;
+}
+
+.abm-lugar-filtro-desplegable:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+
+.abm-lugar-input,
+.abm-lugar-input-rango{
+  margin-bottom: 1rem;
+}
+
+.abm-lugar-input-rango{
+  margin-left: 1rem;
+}
+
+
+.abm-lugar-filtro-capacidad,
+.abm-lugar-filtro-rango-minimo,
+.abm-lugar-filtro-rango-maximo {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.abm-lugar-filtro-capacidad:focus,
+.abm-lugar-filtro-rango-minimo:focus,
+.abm-lugar-filtro-rango-maximo:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.abm-lugares-lista {
+  display: grid;
+  flex-wrap: wrap;
+  gap: 20px;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+  margin-bottom: 2rem;
+}
+
+/* botón para crear un lugar */
+.abm-lugar-btn-nuevo {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.95rem;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.abm-lugar-btn-nuevo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.abm-lugar-btn-nuevo:hover::before {
+  left: 100%;
+}
+
+.abm-lugar-btn-nuevo:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+/* formulario modal */
+.abm-lugar-formulario {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.page-item {
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.page-link {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  background: white;
+  color: #475569;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+}
+
+.page-link:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.page-item.disabled .page-link {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.page-item.active .page-link {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.page-item.active .page-link:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-1px);
+}
+
+.mensaje-vacio-lugar {
+  font-size: 1.2rem;
+  color: #64748b;
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
+
+

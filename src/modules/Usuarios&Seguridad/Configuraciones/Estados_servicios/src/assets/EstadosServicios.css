@@ -1,0 +1,248 @@
+/* EstadosServicios.css reducido: solo popup + switch + validaciones */
+
+/* Overlay centrado robusto */
+.estado-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 10000;
+    display: grid; /* centra con grid */
+    place-items: center;
+    padding: 24px; /* margen respiración */
+    box-sizing: border-box;
+    overflow-y: auto; /* si el popup es alto */
+}
+
+/* Evita scroll del body cuando se aplica la clase en mount (opcional) */
+body.modal-open { overflow: hidden; }
+
+.estado-popup {
+    background: #fff;
+    padding: 1.5em;
+    border-radius: 16px;
+    min-width: 380px;
+    max-width: 92vw;
+    max-height: 92vh;
+    width: fit-content;
+    position: relative;
+    box-shadow: 0 18px 46px -10px rgba(0,0,0,0.25);
+    overflow-y: auto;
+    overflow-x: hidden;
+    animation: est-popup-in .28s ease;
+}
+
+@keyframes est-popup-in {
+    from { opacity: 0; transform: translateY(12px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Botón de cierre unificado (ver abm-shared.css) */
+
+.estado-popup-form {
+    margin: 1em 0;
+}
+
+.estado-popup-form label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: #333;
+    font-size: 1em;
+}
+
+.estado-popup-form input,
+.estado-popup-form select,
+.estado-popup-form textarea {
+    width: 100%;
+    background: #fff;
+    font-size: 1em;
+    padding: 0.8em 1em;
+    border-radius: 8px;
+    border: 2px solid #e1e8ed;
+    margin-bottom: 1em;
+    color: #222;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.estado-popup-form input:focus,
+.estado-popup-form select:focus,
+.estado-popup-form textarea:focus {
+    outline: none;
+    border-color: #4B4EFD;
+    box-shadow: 0 0 0 3px rgba(75,78,253,0.1);
+}
+
+.estado-popup-form input:read-only {
+    background: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.estado-input-error {
+    border-color: #FF0000 !important;
+    box-shadow: 0 0 0 3px rgba(255,0,0,0.1);
+}
+
+.estado-error-msg {
+    color: #FF0000;
+    font-size: 0.9em;
+    margin-top: -0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.5em;
+}
+
+.estado-popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1.5em;
+    padding-top: 1em;
+    border-top: 1px solid #eee;
+}
+
+.estado-popup-save, 
+.estado-popup-cancel {
+    padding: 0.8em 2em;
+    font-size: 1em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.estado-popup-save {
+    background: #1432FF;
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(20,50,255,0.3);
+}
+
+.estado-popup-save:hover:not(:disabled) {
+    background: #0d28e6;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(20,50,255,0.4);
+}
+
+.estado-popup-save:disabled {
+    background: #c1bfbf;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.estado-popup-cancel {
+    background: #C7CCF3;
+    color: #1432FF;
+}
+
+.estado-popup-cancel:hover {
+    background: #b8bef0;
+    transform: translateY(-1px);
+}
+
+.estado-input-completo {
+    background: #fff !important;
+}
+
+/* Switch/Toggle styles para campos tipo switch */
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1em;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4B4EFD;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Responsive para móviles - Modal */
+@media (max-width: 768px) {
+    .estado-popup {
+        min-width: 300px;
+        max-width: 95vw;
+        padding: 1.2em 1.1em 1.3em;
+        margin: 0;
+    }
+    
+    .estado-popup-actions {
+        flex-direction: column;
+        gap: 0.8em;
+    }
+    
+    .estado-popup-save, 
+    .estado-popup-cancel {
+        width: 100%;
+        padding: 1em;
+    }
+    
+    .estado-popup-close {
+        top: 10px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .estado-popup {
+        min-width: 260px;
+        max-width: 98vw;
+        padding: 1em;
+    }
+    
+    .estado-popup-form input,
+    .estado-popup-form select,
+    .estado-popup-form textarea {
+        font-size: 16px; /* Evita zoom en iOS */
+    }
+}
+
+.react-datepicker-wrapper { width: 100%; }
+
+/* Fin archivo reducido */

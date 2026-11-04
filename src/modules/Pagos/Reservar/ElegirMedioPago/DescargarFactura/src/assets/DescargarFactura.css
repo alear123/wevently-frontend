@@ -1,0 +1,332 @@
+/* Modern fonts and animations */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes skeleton-loading {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
+
+/* SOLUCIÓN: Container wrapper para fondo completo */
+.descargar-factura-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.descargar-factura {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  flex: 1;
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.descargar-factura h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin: 1rem 0 1.5rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  animation: slideIn 0.6s ease-out 0.2s both;
+}
+
+/* PDF Viewer */
+.visor-pdf {
+  width: 100%;
+  min-height: 550px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.visor-pdf:hover {
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.skeleton-factura {
+  width: 90%;
+  height: 500px;
+  border-radius: 16px;
+  background: linear-gradient(
+    90deg, 
+    #f1f5f9 25%, 
+    #e2e8f0 50%, 
+    #f1f5f9 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+iframe {
+  width: 100%;
+  height: 550px;
+  border: none;
+  background: #ffffff;
+  border-radius: 16px;
+}
+
+/* Action Buttons - AHORA EN FILA */
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.btn-download {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 180px;
+  justify-content: center;
+}
+
+.btn-download::before {
+  content: "⬇";
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-download:hover::before {
+  transform: translateY(3px);
+}
+
+.btn-download:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btn-download:active {
+  transform: translateY(0);
+}
+
+.btn-download:disabled {
+  background: linear-gradient(135deg, #94a3b8, #64748b);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.btn-return {
+  background-color: white;
+  color: #64748b;
+  border: 2px solid #cbd5e1;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 180px;
+  justify-content: center;
+}
+
+.btn-return::before {
+  content: "🏠";
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-return:hover::before {
+  transform: scale(1.15);
+}
+
+.btn-return:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+  color: #475569;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.btn-return:active {
+  transform: translateY(0);
+}
+
+.btn-download,
+.btn-return {
+  min-width: 180px;
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: stretch;
+    margin-bottom: 1.5rem;
+  }
+  .btn-download,
+  .btn-return {
+    max-width: 100%;
+  }
+}
+
+/* Loading State */
+.loading-pdf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-message {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  color: #991b1b;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.error-message h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .descargar-factura {
+    padding: 1rem 0.75rem;
+  }
+
+  .descargar-factura h1 {
+    font-size: 1.5rem;
+  }
+
+  .visor-pdf {
+    min-height: 400px;
+    border-radius: 16px;
+  }
+
+  iframe {
+    height: 400px;
+  }
+
+  .skeleton-factura {
+    height: 350px;
+  }
+
+  /* Botones apilados en móvil */
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-download,
+  .btn-return {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .descargar-factura {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .visor-pdf {
+    min-height: 300px;
+  }
+
+  iframe {
+    height: 300px;
+  }
+
+  .skeleton-factura {
+    height: 250px;
+  }
+}

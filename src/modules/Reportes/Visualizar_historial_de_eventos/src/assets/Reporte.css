@@ -1,0 +1,866 @@
+/* ======================
+   LAYOUT PRINCIPAL
+   ====================== */
+.reporte-container {
+    min-height: 100vh;
+    background-color: #f8f9fb;
+    position: relative;
+}
+
+.reporte-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 15px;
+}
+
+/* ======================
+   HEADER DEL REPORTE
+   ====================== */
+.reporte-header {
+    margin-bottom: 30px;
+}
+
+.reporte-titulo {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 20px 0 10px 0;
+}
+
+.reporte-subtitulo {
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 30px 0;
+}
+
+/* ======================
+   FILTROS
+   ====================== */
+
+/* ======================
+   INFORMACIÓN DE RANGO
+   ====================== */
+.rango-info-container {
+    margin-bottom: 24px;
+}
+
+.rango-info {
+    background: linear-gradient(90deg, #f0f8ff 0%, #e6f3ff 100%);
+    border-left: 4px solid #2433FF;
+    border-radius: 8px;
+    padding: 16px 20px;
+}
+
+.rango-texto {
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+/* ======================
+   TARJETAS RESUMEN
+   ====================== */
+.reporte-resumen-container {
+    display: grid;
+    gap: 18px;
+    margin-bottom: 32px;
+    justify-content: space-between;
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+
+}
+
+.tarjeta-resumen-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.tarjeta-card {
+    min-width: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    height: auto;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    height: auto;
+    min-height: 120px;
+    background: #fff;
+    border-radius: 14px;
+    border: #222;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+
+
+.tarjeta-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.tarjeta-icono-container {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background: rgba(36, 51, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tarjeta-icono {
+    font-size: 20px;
+    color: #2433FF;
+}
+
+.tarjeta-titulo {
+    color: #2433FF;
+    font-size: 2px;
+    font-weight: 500;
+    margin: 0;
+    text-transform: lowercase;
+}
+
+.tarjeta-cifra {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 8px 0;
+    line-height: 1.1;
+}
+
+.tarjeta-etiqueta {
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: auto;
+}
+
+.tarjeta-titulo,
+.tarjeta-etiqueta,
+.tarjeta-cifra {
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+
+.tarjeta-card-header {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+@media (max-width: 480px) {
+    .tarjeta-card {
+        padding: 12px;
+        min-height: 80px;
+    }
+
+    .tarjeta-titulo,
+    .tarjeta-etiqueta,
+    .tarjeta-cifra {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 950px) {
+    .reporte-resumen-container {
+        flex-wrap: wrap;
+    }
+
+    .tarjeta-resumen-container {
+        flex: 1 0 280px;
+        min-width: 230px;
+        margin-bottom: 18px;
+    }
+}
+
+@media (max-width: 650px) {
+    .reporte-resumen-container {
+        flex-direction: column;
+    }
+
+    .tarjeta-resumen-container {
+        min-width: 0;
+        margin-bottom: 14px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .reporte-resumen-container {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .reporte-resumen-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tarjeta-resumen-container .tarjeta-card {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.tarjeta-resumen-container .tarjeta-cifra {
+    font-size: 2.2em;
+    text-align: left;
+    font-weight: 700;
+    word-break: break-all;
+    margin: 0 0 10px 0;
+}
+
+.tarjeta-resumen-valor-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 auto;
+    min-height: 56px;
+    /* o el alto que quieras para centrar la cifra */
+}
+
+/* ======================
+   SECCIÓN DEL GRÁFICO
+   ====================== */
+.reporte-chart-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.chart-header {
+    padding: 24px 24px 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.chart-titulo {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.chart-filtros {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-filtro-grafico {
+    background: #f8f9fb;
+    color: #666;
+    border: 1px solid #e0e0e0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-filtro-grafico:hover:not(:disabled) {
+    background: #e9ecef;
+    border-color: #2433FF;
+}
+
+.btn-filtro-grafico.activo {
+    background: #2433FF;
+    color: white;
+    border-color: #2433FF;
+}
+
+.btn-filtro-grafico:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chart-fechas {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.fecha-input {
+    padding: 6px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #666;
+    background: #f8f9fb;
+    cursor: default;
+    width: 120px;
+}
+
+/* ======================
+   CONTENEDOR DEL GRÁFICO
+   ====================== */
+.reporte-chart-container {
+    padding: 24px;
+    min-height: 400px;
+}
+
+.grafico-container {
+    width: 100%;
+    position: relative;
+}
+
+.grafico-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px;
+}
+
+.grafico-sin-datos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background: #f8f9fb;
+    border-radius: 8px;
+    border: 2px dashed #ddd;
+}
+
+.grafico-sin-datos p {
+    color: #666;
+    font-size: 16px;
+    margin: 0;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    font-size: 16px;
+    color: #666;
+}
+
+/* ======================
+   BOTÓN FLOTANTE
+   ====================== */
+.btn-descargar-flotante {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #2433FF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(36, 51, 255, 0.3);
+    z-index: 1000;
+}
+
+.btn-descargar-flotante:hover:not(:disabled) {
+    background: #1a2899;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(36, 51, 255, 0.4);
+}
+
+.btn-descargar-flotante:disabled {
+    background: #BDC4E9;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ======================
+   ESTADOS DE ERROR
+   ====================== */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    text-align: center;
+    padding: 40px;
+}
+
+.error-container p {
+    color: #ff4444;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.btn-reintentar {
+    background: #2433FF;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-reintentar:hover {
+    background: #1a2899;
+    transform: translateY(-1px);
+}
+
+/* ======================
+   RESPONSIVE DESIGN
+   ====================== */
+@media (max-width: 1024px) {
+    .reporte-content {
+        padding: 16px;
+    }
+
+    .reporte-resumen-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+    }
+
+    .chart-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .chart-filtros {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 768px) {
+    .reporte-titulo {
+        font-size: 28px;
+    }
+
+    .filtros-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .filtro-campo {
+        max-width: none;
+    }
+
+    .reporte-resumen-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+
+    .tarjeta-cifra {
+        font-size: 28px;
+    }
+
+    .chart-filtros {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .chart-fechas {
+        justify-content: space-between;
+    }
+
+    .fecha-input {
+        flex: 1;
+        max-width: 140px;
+    }
+
+    .btn-descargar-flotante {
+        bottom: 16px;
+        right: 16px;
+        padding: 14px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .reporte-content {
+        padding: 12px;
+    }
+
+    .filtros-reporte-container,
+    .reporte-chart-section {
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .filtros-reporte-container {
+        padding: 20px;
+    }
+
+    .reporte-chart-container {
+        padding: 16px;
+    }
+
+    .grafico-wrapper {
+        height: 300px;
+    }
+
+    .tarjeta-card-header {
+        gap: 10px;
+    }
+
+    .tarjeta-icono-container {
+        width: 36px;
+        height: 36px;
+    }
+
+    .tarjeta-icono {
+        font-size: 18px;
+    }
+
+    .tarjeta-cifra {
+        font-size: 24px;
+    }
+}
+
+/* ======================
+   ESTILOS PARA DATEPICKER
+   ====================== */
+/* Date inputs (compact style inside filtros compactos) */
+.parametro-datepicker {
+    width: 140px;
+    padding: 6px 10px;
+    border: 1px solid #d1d5db !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    color: #1f2937 !important;
+    /* texto visible (antes blanco sobre gris) */
+    /* Forzar color negro en partes internas del input date */
+    -webkit-text-fill-color: #1f2937 !important;
+    -webkit-text-stroke: 0px #1f2937 !important;
+    /* Para Chrome/Edge/Safari: año y mes en negro */
+}
+
+/* Forzar color negro en partes internas del input date (año, mes, día) */
+.parametro-datepicker::-webkit-datetime-edit-year-field,
+.parametro-datepicker::-webkit-datetime-edit-month-field,
+.parametro-datepicker::-webkit-datetime-edit-day-field {
+    color: #1f2937 !important;
+    -webkit-text-fill-color: #1f2937 !important;
+}
+
+.parametro-datepicker::-webkit-input-placeholder {
+    color: #6b7280 !important;
+}
+
+.parametro-datepicker::-webkit-datetime-edit-text {
+    color: #1f2937 !important;
+    background: #f1f5f9 !important;
+    transition: border-color 0.2s, background-color 0.25s, box-shadow 0.25s !important;
+    line-height: 1.1;
+}
+
+.parametro-datepicker:focus {
+    outline: none;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, .25) !important;
+    background: #fff !important;
+}
+
+.parametro-datepicker::placeholder {
+    color: #6b7280;
+}
+
+.parametro-datepicker:disabled {
+    background: #e5e7eb !important;
+    color: #6b7280 !important;
+    cursor: not-allowed;
+}
+
+/* ======================
+   ANIMACIONES
+   ====================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reporte-resumen-container,
+.reporte-chart-section,
+.filtros-reporte-container {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.tarjeta-card {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.tarjeta-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.tarjeta-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.tarjeta-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* ======================
+   MEJORAS DE ACCESIBILIDAD
+   ====================== */
+.btn-aplicar-filtros:focus,
+.btn-filtro-grafico:focus,
+.btn-descargar-flotante:focus,
+.btn-reintentar:focus {
+    outline: 2px solid #2433FF;
+    outline-offset: 2px;
+}
+
+.parametro-datepicker:focus {
+    outline: 2px solid #2433FF;
+    outline-offset: 2px;
+}
+
+/* ======================
+   UTILIDADES
+   ====================== */
+.text-center {
+    text-align: center;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mb-1 {
+    margin-bottom: 8px;
+}
+
+.mb-2 {
+    margin-bottom: 16px;
+}
+
+.mb-3 {
+    margin-bottom: 24px;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.mt-1 {
+    margin-top: 8px;
+}
+
+.mt-2 {
+    margin-top: 16px;
+}
+
+.mt-3 {
+    margin-top: 24px;
+}
+
+
+.react-datepicker-popper {
+    z-index: 9999;
+}
+
+.react-datepicker {
+    z-index: 9999 !important;
+}
+
+.filtros-reporte-compacto {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filtros-row-compacto {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.filtro-campo {
+    min-width: 120px;
+    max-width: 180px;
+    flex: 0 1 auto;
+    margin-bottom: 0;
+}
+
+.filtro-campo-btn {
+    min-width: 100px;
+    max-width: 120px;
+}
+
+.btn-aplicar-filtros {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 13px;
+}
+
+/* Responsive para filtros compactos */
+@media (max-width: 768px) {
+    .filtros-row-compacto {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .filtro-campo,
+    .filtro-campo-btn {
+        min-width: 100px;
+        max-width: 100%;
+    }
+}
+
+/*Pop up*/
+.pop-up-close {
+    margin-left: auto;
+    top: 10px;
+    right: 10px;
+    background: #ff4757;
+    border: none;
+    border-radius: 50%;
+    width: 5px;
+    height: 30px;
+    font-size: 0.8em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+
+.pop-up-close:hover {
+    background: #ff3838;
+    transform: scale(1.05);
+}
+
+.btn-filtro-grafico:hover:not(:disabled) {
+    color: black;
+}
+
+/* ======================
+   TABLA DE DATOS
+   ====================== */
+/* Estilos para la tabla del reporte */
+.reporte-table-container {
+    margin-top: 24px;
+    min-height: 400px;
+
+}
+
+.tabla-reporte-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.tabla-reporte {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tabla-reporte thead {
+    background-color: #f8f9fa;
+}
+
+.tabla-reporte th {
+    padding: 16px 24px;
+    text-align: left;
+    font-weight: 600;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+    font-size: 14px;
+}
+
+.tabla-reporte td {
+    padding: 16px 24px;
+    color: #4a5568;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-reporte tbody tr:hover {
+    background-color: #f7fafc;
+}
+
+.tabla-reporte tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Alineación de números */
+.tabla-reporte th:last-child,
+.tabla-reporte td:last-child {
+    text-align: right;
+}
+
+/* Mensaje cuando no hay datos */
+.tabla-sin-datos {
+    text-align: center;
+    padding: 40px 20px;
+    color: #718096;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .tabla-reporte th,
+    .tabla-reporte td {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+
+    .reporte-table-container {
+        padding: 0 10px;
+    }
+}
+
+.reporte-resumen-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 950px) {
+    .reporte-resumen-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .reporte-resumen-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}

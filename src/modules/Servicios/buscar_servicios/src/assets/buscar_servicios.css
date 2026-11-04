@@ -1,0 +1,365 @@
+/* Adding modern font import and keyframes for animations */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Enhanced general container with gradient background */
+.contenedorTotal {
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Modern glassmorphism container with enhanced styling */
+.buscarServiciosContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "Inter", "Atkinson Hyperlegible", sans-serif;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  margin-top: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 20px 40px rgba(63, 62, 62, 0.15), 0 0 0 1px rgba(89, 89, 89, 0.1);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Enhanced search container with better spacing */
+.contenedorBuscador {
+  display: flex;
+  align-items: center;
+  padding-left: 9.8%;
+  width: 100%;
+  margin-top: 1%;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.contenedorButton {
+  margin-left: 2%;
+}
+
+/* Enhanced filter dropdown with modern styling */
+.filtroDesplegable {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  min-width: 200px;
+  animation: fadeIn 0.8s ease-out 0.3s both;
+}
+
+/* Modern filter buttons with gradient and hover effects */
+.btnFiltros {
+  border: 2px solid rgb(183, 183, 183);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  font-size: 1.2rem;
+  color: #2d3748;
+  border-radius: 16px;
+  padding: 12px 20px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btnFiltros::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btnFiltros:hover::before {
+  left: 100%;
+}
+
+.btnFiltros:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Enhanced filters panel with glassmorphism */
+.filtrosPanel {
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 1.4rem;
+  color: #333;
+  border-radius: 20px;
+  padding: 16px 2.12rem;
+  gap: 1rem;
+  width: 80%;
+  margin-top: 2%;
+  margin-left: 10%;
+  margin-top: 1%;
+  align-items: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+/* Enhanced banner with modern gradient and animation */
+.bannerServicios {
+  background: linear-gradient(to right, #003366, #0066ff);
+  color: white;
+  width: 100%;
+  font-weight: 600;
+  padding: 20px 12px;
+  border-radius: 24px 24px 0 0;
+  font-family: "Inter", "Atkinson Hyperlegible", sans-serif;
+  margin-top: 0;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bannerServicios::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+/* Enhanced service card with modern styling and animations */
+.cardServicio {
+  width: 300px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeIn 0.6s ease-out;
+}
+
+.cardServicio:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 25px rgba(102, 126, 234, 0.1);
+}
+
+/* Enhanced service image with better styling */
+.imagenServicio {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardServicio:hover .imagenServicio {
+  transform: scale(1.05);
+}
+
+/* Enhanced content section */
+.contenidoServicio {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+/* Enhanced service name with better typography */
+.nombreServicio {
+  font-size: 18px;
+  font-family: "Inter", "Atkinson Hyperlegible", sans-serif;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #2d3748;
+}
+
+/* Enhanced stars container */
+.contenedorEstrellas {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-family: "Inter", "Atkinson Hyperlegible", sans-serif;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.estrella {
+  color: #f6ad55;
+  font-size: 16px;
+  filter: drop-shadow(0 1px 2px rgba(246, 173, 85, 0.3));
+}
+
+/* Enhanced service type chip with gradient */
+.tipoServicio {
+  display: inline-block;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+  border: 1px solid rgb(214, 214, 214);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  width: fit-content;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+}
+
+.tipoServicio:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Enhanced description with better typography */
+.descripcionServicio {
+  font-size: 14px;
+  color: #718096;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+/* Enhanced actions section */
+.accionesServicio {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+/* Enhanced detail button with modern styling and animations */
+.btnDetalle {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+
+.btnDetalle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btnDetalle:hover::before {
+  left: 100%;
+}
+
+.btnDetalle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+}
+
+/* Enhanced services list with better spacing */
+.serviciosLista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  padding: 32px 20px;
+  animation: fadeIn 0.8s ease-out 0.5s both;
+}
+
+/* Enhanced paginator with modern styling */
+.paginador {
+  padding: 5% !important;
+  animation: fadeIn 0.8s ease-out 0.6s both;
+
+}
+
+.contenedor-paginador{
+  padding: 30px !important;
+}
+
+/* Adding responsive design enhancements */
+@media (max-width: 768px) {
+  .buscarServiciosContainer {
+    margin: 4px;
+    border-radius: 20px;
+  }
+
+  .bannerServicios {
+    border-radius: 20px 20px 0 0;
+    padding: 16px 12px;
+  }
+
+  .cardServicio {
+    width: calc(100% - 20px);
+    margin: 10px;
+  }
+
+  .serviciosLista {
+    padding: 20px 10px;
+    gap: 16px;
+  }
+
+  .filtrosPanel {
+    width: 90%;
+    margin-left: 5%;
+    padding: 12px 16px;
+  }
+}
