@@ -1,8 +1,9 @@
+import dominio from '../API';
   import React, { useState, useEffect } from 'react';
   import { FaStar } from 'react-icons/fa';
   import SuccessAlert from '../../common/layouts/SuccessAlert'
 
-const API_URL = "http://localhost:8080/api/resena";
+const API_URL = `${dominio}/api/resena`;
 
 const FormularioResena = ({ tipo, id,idEvento }) => {
   const [estrellas, setEstrellas] = useState(0);

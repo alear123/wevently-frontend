@@ -1,7 +1,8 @@
+import dominio from '../../../../../common/API';
 export async function getMisEventos() {
   const token = localStorage.getItem("token"); 
 
-  const response = await fetch("http://localhost:8080/api/eventos/mis-eventos", {
+  const response = await fetch(`${dominio}/api/eventos/mis-eventos`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +20,7 @@ export async function getMisEventos() {
 export async function getTiposEvento() {
   const token = localStorage.getItem("token"); 
 
-  const response = await fetch("http://localhost:8080/api/tipo-de-evento", {
+  const response = await fetch(`${dominio}/api/tipo-de-evento`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +38,7 @@ export async function getTiposEvento() {
 export async function crearEvento(eventoData) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch("http://localhost:8080/api/eventos/nuevo", {
+  const response = await fetch(`${dominio}/api/eventos/nuevo`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -58,7 +59,7 @@ export async function crearEvento(eventoData) {
 export async function editarEvento(eventoId, eventoData) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:8080/api/eventos/editar/${eventoId}`, {
+  const response = await fetch(`${dominio}/api/eventos/editar/${eventoId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -78,7 +79,7 @@ export async function editarEvento(eventoId, eventoData) {
 export async function cancelarEvento(eventoId) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:8080/api/eventos/cancelar/${eventoId}`, {
+  const response = await fetch(`${dominio}/api/eventos/cancelar/${eventoId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -97,7 +98,7 @@ export async function cancelarEvento(eventoId) {
 export async function obtenerLugar(eventoId) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:8080/api/eventos/obtenerLugar/${eventoId}`, {
+  const response = await fetch(`${dominio}/api/eventos/obtenerLugar/${eventoId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -117,7 +118,7 @@ export async function obtenerLugar(eventoId) {
 
 
 export async function obtenerServiciosContratados(idEvento) {
-  const url = `http://localhost:8080/api/eventos/obtenerServicios/${idEvento}`;
+  const url = `${dominio}/api/eventos/obtenerServicios/${idEvento}`;
   const token = localStorage.getItem("token");
   const res = await fetch(url, {
     method: "GET",
@@ -129,7 +130,7 @@ export async function obtenerServiciosContratados(idEvento) {
 
   if (!res.ok) {
     const errorText = await res.text();
-    throw new Error(`Error al obtener servicios del evento: ${response.status} - ${errorText}`);
+    throw new Error(`Error al obtener servicios del evento: ${res.status} - ${errorText}`);
   }
 
   const data = await res.json();

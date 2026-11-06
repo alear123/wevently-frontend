@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8080/api/reservas"; // ajustá la URL base según tu backend
+import dominio from '../../../../../common/API';
+const API_URL = `${dominio}/api/reservas`; // ajustá la URL base según tu backend
 
 // 🔹 Obtener datos para el formulario de reserva
 export const getDatosFormularioReserva = async (idReserva) => {

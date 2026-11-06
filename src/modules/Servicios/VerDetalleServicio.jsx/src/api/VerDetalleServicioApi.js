@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8080/api/servicios"; // tu backend
+import dominio from '../../../../../common/API';
+const API_URL = `${dominio}/api/servicios`; // tu backend
 
 export const getDetalleServicio = async (idServicio) => {
   const res = await fetch(`${API_URL}/verDetalleServicio/${idServicio}`, {

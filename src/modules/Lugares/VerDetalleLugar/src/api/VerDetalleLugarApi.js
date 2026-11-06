@@ -1,5 +1,6 @@
+import dominio from '../../../../../common/API';
 // src/api/VerDetalleLugarApi.js
-const API_BASE_URL = "http://localhost:8080/api/lugares";
+const API_BASE_URL = `${dominio}/api/lugares`;
 
 /**
  * 🔹 Obtiene el detalle de un lugar por su ID

@@ -1,4 +1,5 @@
-const API_URL =  "http://localhost:8080/api/backups";
+import dominio from '../../../../../common/API';
+const API_URL =  `${dominio}/api/backups`;
 
 
 export async function getBackups() {

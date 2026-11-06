@@ -1,3 +1,4 @@
+import dominio from '../../../../../common/API';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
@@ -57,7 +58,7 @@ export const useNotificaciones = () => {
 
     try {
         clienteStomp.current = new Client({
-            webSocketFactory: () => new SockJS('http://localhost:8080/ws-notifications'),
+            webSocketFactory: () => new SockJS(`${dominio}/ws-notifications`),
             connectHeaders: {
                 Authorization: `Bearer ${token}`
             },

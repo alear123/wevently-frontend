@@ -1,4 +1,5 @@
-const base_URL = "http://localhost:8080/api"; // Acá va la URL de la api
+import dominio from '../common/API';
+const base_URL = `${dominio}/api`; // Acá va la URL de la api
 
 // Obtengo el token desde el almacenamiento (ejemplo localStorage)
 const getToken = () => localStorage.getItem("token");

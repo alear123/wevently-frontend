@@ -1,3 +1,4 @@
+import dominio from '../../../../../common/API';
 
 // Función para armar headers con el token
 const authHeaders = (token) => ({
@@ -7,7 +8,7 @@ const authHeaders = (token) => ({
 
 
 const servicesApi = () => {
-    const BASE_URL = "http://localhost:8080/api"
+    const BASE_URL = `${dominio}/api`
     
     // Obtengo el token desde el almacenamiento
     const getToken = () => localStorage.getItem("token");

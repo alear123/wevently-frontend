@@ -1,12 +1,13 @@
 import HOST from '../../../../../common/API'
 
 const BASE_URL = `${HOST}`
-const configuracionBase = {
+// Se arma en cada request para usar siempre el token actual
+const configuracionBase = () => ({
     headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem("token")}`
     },
-}
+})
 
 
 
@@ -36,7 +37,7 @@ export const obtenerMediosDePagoDisponibles = async () => {
     try {
         const response = await fetch(`${BASE_URL}/api/pagos/disponibles`, {
             method: 'GET',
-            ...configuracionBase
+            ...configuracionBase()
         })
 
         return await manejarRespuesta(response)
@@ -51,7 +52,7 @@ export const crearPreferenciaMercadoPago = async (datosPreferencia) => {
     try {
         const response = await fetch(`${BASE_URL}/api/pagos/crear-preferencia`, {
             method: 'POST',
-            ...configuracionBase,
+            ...configuracionBase(),
             body: JSON.stringify(datosPreferencia),
         })
         
@@ -75,7 +76,7 @@ export const procesarPagoConToken = async (datosPago) => {
     try {
         const response = await fetch(`${BASE_URL}/api/pagos/procesar-pago`, {
             method: 'POST',
-            ...configuracionBase,
+            ...configuracionBase(),
             body: JSON.stringify(datosPago),
         })
 
@@ -91,7 +92,7 @@ export const confirmarReserva = async (DatosReservaDTO) => {
     try {
         const response = await fetch(`${BASE_URL}/api/reservas/confirmar-reserva`, {
             method: 'PUT',
-            ...configuracionBase,
+            ...configuracionBase(),
             body: JSON.stringify(DatosReservaDTO),
         })
 
